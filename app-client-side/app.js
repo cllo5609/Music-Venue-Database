@@ -1,14 +1,14 @@
 
 // Setup
-
 var express = require('express');
 var app = express();
-PORT = 37293;
+PORT = 37292;
 
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');
 app.engine('.hbs', engine({extname: ".hbs"}));
 app.set('view engine', '.hbs');
+app.use(express.static(__dirname + "/public"));
 
 // Routes
 
@@ -20,6 +20,10 @@ app.get('/', (req, res) =>{
 // Venue Page
 app.get('/venues', (req, res) =>{
         res.render('venues');
+    });
+
+app.get('/venue_mod', (req, res) =>{
+        res.render('venue_mod');
     });
 
 // Rooms Page
@@ -45,6 +49,16 @@ app.get('/instruments', (req, res) =>{
 // Tickets Page
 app.get('/tickets', (req, res) =>{
     res.render('tickets');
+});
+
+// Ticket Invoices Page
+app.get('/ticket_invoices', (req, res) =>{
+    res.render('ticket_invoices');
+});
+
+// Artist Needs Instruments Page
+app.get('/artist_needs_ins', (req, res) =>{
+    res.render('artist_needs_ins');
 });
 
 // Listener
