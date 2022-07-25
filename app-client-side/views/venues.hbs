@@ -8,16 +8,18 @@
             <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
             <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
             <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a></td>
+            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
+            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
+            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
         </tr>
     </table>
 </div>
 
-<div id "data-table">
+<div id "browse">
     <h2><b>Venue List</b></h2>
     <table border=solid cellpadding="5">
         <tr>
-            <th>ID</th>
+            <th>Venue ID</th>
             <th>Name</th>
             <th>Address</th>
             <th>City</th>
@@ -26,6 +28,7 @@
             <th>Phone Number</th>
             <th>Number of Rooms</th>
             <th>Total Capacity</th>
+            <th>Actions</th>
         </tr>
         <tr>
             <td>1</td>
@@ -37,6 +40,7 @@
             <td>512-442-6189</td>
             <td>3</td>
             <td>350</td>
+            <td><a class="venue_mod" name="venue_id" type="button" href="/venue_mod"> Edit/Delete </a></td>
         </tr>
         <tr>
             <td>2</td>
@@ -48,6 +52,7 @@
             <td>619-226-7662</td>
             <td>1</td>
             <td>400</td>
+            <td><a class="venue_mod" name="venue_id" type="button" href="/venue_mod"> Edit/Delete </a></td>
         </tr>
             <tr>
             <td>3</td>
@@ -59,24 +64,25 @@
             <td>206-441-5555</td>
             <td>2</td>
             <td>550</td>
+            <td><a class="venue_mod" name="venue_id" type="button" href="/venue_mod"> Edit/Delete </a></td>
         </tr>
     </table>
 </div>
 <br>
 
 <div id="add">
-    <h2><b>Add a Venue</b></h2>
+
     <form id="add-venue">
         <legend><b>Add a Venue</b></legend>
           <fieldset class="fields">
-            <label> Name </label> <input type="text" name="name">
-            <label> Address </label> <input type="text" name="address">
-            <label> City </label> <input type="text" name="city">
-            <label> State </label> <input type="text" name="state">
-            <label> Zip Code </label> <input type="text" name="zip">
-            <label> Phone Number </label> <input type="tel" name="phone">
-            <label> Number of Rooms </label> <input type="text" name="rooms">
-            <label> Total Capacity </label> <input type="text" name="capacity">
+            <label> Name: </label> <input type="text" name="name">
+            <label> Address: </label> <input type="text" name="address">
+            <label> City: </label> <input type="text" name="city">
+            <label> State: </label> <input type="text" name="state"><br>
+            <label> Zip Code: </label> <input type="text" name="zip">
+            <label> Phone Number: </label> <input type="tel" name="phone">
+            <label> Number of Rooms: </label> <input type="text" name="rooms"><br>
+            <label> Total Capacity: </label> <input type="text" name="capacity">
           </fieldset>
           <input class="btn" type="submit" id="add_venue" value="Add Venue">
           <input class="btn" type="button" value="Cancel">
@@ -84,35 +90,3 @@
 </div>
 <br>
 
-<div id="update">
-    <h2><b>Update Venue</b></h2>
-    <form id="update-venue">
-      <legend><b>Update Venue</b></legend>
-          <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
-            <label> Name </label> <input type="text" name="name">
-            <label> Address </label> <input type="text" name="address">
-            <label> City </label> <input type="text" name="city">
-            <label> State </label> <input type="text" name="state">
-            <label> Zip Code </label> <input type="text" name="zip">
-            <label> Phone Number </label> <input type="tel" name="phone">
-            <label> Number of Rooms </label> <input type="text" name="rooms">
-            <label> Total Capacity </label> <input type="text" name="capacity">
-    </fieldset>
-    <input class="btn" type="submit" id="update-venue" value="Update Venue">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
-<br>
-
-<div id="delete">
-    <h2><b>Delete Venue</b></h2>
-    <form id="delete-venue">
-      <legend><b>Delete Venue</b></legend>
-          <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
-    </fieldset>
-    <input class="btn" type="submit" id="delete-venue" value="Delete Venue">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>

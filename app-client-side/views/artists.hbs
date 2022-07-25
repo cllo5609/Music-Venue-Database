@@ -8,7 +8,9 @@
             <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
             <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
             <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a></td>
+            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
+            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
+            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
         </tr>
     </table>
 </div>
@@ -48,14 +50,13 @@
 <br>
 
 <div id="add">
-    <h2><b>Add an Artist</b></h2>
     <form id="add-artist">
         <legend><b>Add an Artist</b></legend>
           <fieldset class="fields">
-            <label> Name </label> <input type="text" name="name">
-            <label> Email </label> <input type="email" name="email">
-            <label> Phone Number </label> <input type="tel" name="phone">
-            <label> Genre </label> <input type="text" name="genre">
+            <label> Name: </label> <input type="text" name="name">
+            <label> Email: </label> <input type="email" name="email">
+            <label> Phone: </label> <input type="tel" name="phone">
+            <label> Genre: </label> <input type="text" name="genre">
           </fieldset>
           <input class="btn" type="submit" id="add_artist" value="Add Artist">
           <input class="btn" type="button" value="Cancel">
@@ -64,15 +65,14 @@
 <br>
 
 <div id="update">
-    <h2><b>Update Artist</b></h2>
     <form id="update-artist">
       <legend><b>Update Artist</b></legend>
           <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
-            <label> Name </label> <input type="text" name="name">
-            <label> Email </label> <input type="email" name="email">
-            <label> Phone Number </label> <input type="tel" name="phone">
-            <label> Genre </label> <input type="text" name="genre">
+            <label> ID: </label> <input type="number" name="id">
+            <label> Name: </label> <input type="text" name="name">
+            <label> Email: </label> <input type="email" name="email">
+            <label> Phone: </label> <input type="tel" name="phone">
+            <label> Genre: </label> <input type="text" name="genre">
     </fieldset>
     <input class="btn" type="submit" id="update-artist" value="Update Artist">
     <input class="btn" type="button" value="Cancel" >
@@ -81,11 +81,10 @@
 <br>
 
 <div id="delete">
-    <h2><b>Delete Artist</b></h2>
     <form id="delete-artist">
       <legend><b>Delete Artist</b></legend>
           <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
+            <label> ID: </label> <input type="number" name="id">
     </fieldset>
     <input class="btn" type="submit" id="delete-artist" value="Delete Artist">
     <input class="btn" type="button" value="Cancel" >

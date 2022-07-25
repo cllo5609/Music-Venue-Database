@@ -8,7 +8,9 @@
             <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
             <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
             <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a></td>
+            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
+            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
+            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
         </tr>
     </table>
 </div>
@@ -42,11 +44,10 @@
 <br>
 
 <div id="add">
-    <h2><b>Add an Instrument</b></h2>
     <form id="add-instrument">
         <legend><b>Add an Instrument</b></legend>
           <fieldset class="fields">
-            <label> Instrument Name </label> <input type="text" name="name">
+            <label> Instrument Name: </label> <input type="text" name="name">
           </fieldset>
           <input class="btn" type="submit" id="add_instrument" value="Add Instrument">
           <input class="btn" type="button" value="Cancel">
@@ -55,12 +56,11 @@
 <br>
 
 <div id="update">
-    <h2><b>Update Instrument</b></h2>
     <form id="update-Instrument">
       <legend><b>Update Instrument</b></legend>
           <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
-            <label>Instrument Name </label> <input type="text" name="name">
+            <label> ID: </label> <input type="number" name="id">
+            <label>Instrument Name: </label> <input type="text" name="name">
     </fieldset>
     <input class="btn" type="submit" id="update-instrument" value="Update Instrument">
     <input class="btn" type="button" value="Cancel" >
@@ -69,11 +69,10 @@
 <br>
 
 <div id="delete">
-    <h2><b>Delete Instrument</b></h2>
     <form id="delete-Instrument">
       <legend><b>Delete Instrument</b></legend>
           <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
+            <label> ID: </label> <input type="number" name="id">
     </fieldset>
     <input class="btn" type="submit" id="delete-instrument" value="Delete Instrument">
     <input class="btn" type="button" value="Cancel" >

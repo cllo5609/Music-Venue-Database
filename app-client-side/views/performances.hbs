@@ -8,7 +8,9 @@
             <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
             <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
             <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a></td>
+            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
+            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
+            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
         </tr>
     </table>
 </div>
@@ -47,13 +49,13 @@
 <br>
 
 <div id="add">
-    <h2><b>Add a Performance</b></h2>
     <form id="add-performance">
         <legend><b>Add a Performance</b></legend>
           <fieldset class="fields">
-            <label> Performance Date </label> <input type="date" name="date">
-            <label> Tickets Available </label> <input type="number" name="tic_available">
-            <label> Room ID </label> <input type="number" name="room_id">
+            <label> Performance Date: </label> <input type="date" name="date">
+            <label> Tickets Available: </label> <input type="number" name="tic_available"><br>
+            <label> Room ID: </label> <input type="number" name="room_id">
+            <label> Artist ID: </label> <input type="number" name="artist_id">
 
           </fieldset>
           <input class="btn" type="submit" id="add_performance" value="Add Performance">
@@ -63,14 +65,14 @@
 <br>
 
 <div id="update">
-    <h2><b>Update Performance</b></h2>
     <form id="update-performance">
       <legend><b>Update Performance</b></legend>
           <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
-            <label> Performance Date </label> <input type="date" name="date">
-            <label> Tickets Available </label> <input type="number" name="tic_available">
-            <label> Room ID </label> <input type="number" name="room_id">
+            <label> Performance ID: </label> <input type="number" name="id">
+            <label> Performance Date: </label> <input type="date" name="date"><br>
+            <label> Tickets Available: </label> <input type="number" name="tic_available">
+            <label> Room ID: </label> <input type="number" name="room_id">
+            <label> Artist ID: </label> <input type="number" name="artist_id">
     </fieldset>
     <input class="btn" type="submit" id="update-performance" value="Update Performance">
     <input class="btn" type="button" value="Cancel" >
@@ -79,11 +81,10 @@
 <br>
 
 <div id="delete">
-    <h2><b>Delete Venue</b></h2>
     <form id="delete-performance">
       <legend><b>Delete Performance</b></legend>
           <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
+            <label> Performance ID: </label> <input type="number" name="id">
     </fieldset>
     <input class="btn" type="submit" id="delete-performance" value="Delete Performance">
     <input class="btn" type="button" value="Cancel" >

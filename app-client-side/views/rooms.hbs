@@ -8,7 +8,9 @@
             <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
             <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
             <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a></td>
+            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
+            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
+            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
         </tr>
     </table>
 </div>
@@ -17,15 +19,17 @@
     <h2><b>Rooms List</b></h2>
     <table border=solid cellpadding="5">
         <tr>
-            <th>ID</th>
+            <th>Room ID</th>
             <th>Name</th>
             <th>Capacity</th>
+            <th>Over 21</th>
             <th>Venue ID</th>
         </tr>
         <tr>
             <td>1</td>
             <td>Pony Room</td>
             <td>75</td>
+            <td>0</td>
             <td>1</td>
         </tr>
         <tr>
@@ -33,11 +37,13 @@
             <td>Oregon Trail</td>
             <td>50</td>
             <td>1</td>
+            <td>1</td>
         </tr>
         <tr>
             <td>3</td>
             <td>The Clydesdale</td>
             <td>125</td>
+            <td>1</td>
             <td>3</td>
         </tr>
     </table>
@@ -45,13 +51,13 @@
 <br>
 
 <div id="add">
-    <h2><b>Add a Room</b></h2>
     <form id="add-room">
         <legend><b>Add a Room</b></legend>
           <fieldset class="fields">
-            <label> Name </label> <input type="text" name="name">
-            <label> Capacity </label> <input type="text" name="capacity">
-            <label> Venue ID</label> <input type="number" name="venue_id">
+            <label> Name: </label> <input type="text" name="name">
+            <label> Capacity: </label> <input type="text" name="capacity"><br>
+            <label> Over 21:</label> <input type="number" name="over_21">
+            <label> Venue ID:</label> <input type="number" name="venue_id">
           </fieldset>
           <input class="btn" type="submit" id="add_room" value="Add Room">
           <input class="btn" type="button" value="Cancel">
@@ -60,14 +66,14 @@
 <br>
 
 <div id="update">
-    <h2><b>Update Room</b></h2>
     <form id="update-room">
-        <legend><b>Update Venue</b></legend>
+        <legend><b>Update Room</b></legend>
         <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
-            <label> Name </label> <input type="text" name="name">
-            <label> Capacity </label> <input type="text" name="capacity">
-            <label> Venue ID</label> <input type="number" name="venue_id">
+            <label> Room ID: </label> <input type="number" name="id">
+            <label> Name: </label> <input type="text" name="name">
+            <label> Capacity: </label> <input type="text" name="capacity"><br>
+            <label> Over 21:</label> <input type="number" name="over_21">
+            <label> Venue ID:</label> <input type="number" name="venue_id">
         </fieldset>
         <input class="btn" type="submit" id="update-room" value="Update Room">
         <input class="btn" type="button" value="Cancel" >
@@ -77,10 +83,10 @@
 
 <div id="delete">
     <h2><b>Delete Room</b></h2>
-    <form id="delete-venue">
+    <form id="delete-room">
       <legend><b>Delete Room</b></legend>
           <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
+            <label> Room ID: </label> <input type="number" name="id">
     </fieldset>
     <input class="btn" type="submit" id="delete-room" value="Delete Room">
     <input class="btn" type="button" value="Cancel" >

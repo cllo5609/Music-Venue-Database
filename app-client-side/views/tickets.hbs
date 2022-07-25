@@ -8,7 +8,9 @@
             <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
             <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
             <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a></td>
+            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
+            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
+            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
         </tr>
     </table>
 </div>
@@ -44,12 +46,11 @@
 <br>
 
 <div id="add">
-    <h2><b>Add a Ticket</b></h2>
     <form id="add-ticket">
         <legend><b>Add a Ticket</b></legend>
           <fieldset class="fields">
-            <label> Ticket Price </label> <input type="number" step="0.01" name="price">
-            <label> Ticket Quantity </label> <input type="number" name="quantity">
+            <label> Ticket Price: </label> <input type="number" step="0.01" name="price">
+            <label> Ticket Quantity: </label> <input type="number" min="1" max="8" name="quantity">
 
           </fieldset>
           <input class="btn" type="submit" id="add_ticket" value="Add Ticket">
@@ -59,13 +60,12 @@
 <br>
 
 <div id="update">
-    <h2><b>Update Ticket</b></h2>
     <form id="update-ticket">
       <legend><b>Update Ticket</b></legend>
           <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
-            <label> Ticket Price </label> <input type="number" step="0.01" name="price">
-            <label> Ticket Quantity </label> <input type="number" name="quantity">
+            <label> ID: </label> <input type="number" name="id">
+            <label> Ticket Price: </label> <input type="number" step="0.01" name="price">
+            <label> Ticket Quantity: </label> <input type="number" name="quantity">
     </fieldset>
     <input class="btn" type="submit" id="update-ticket" value="Update Ticket">
     <input class="btn" type="button" value="Cancel" >
@@ -74,11 +74,10 @@
 <br>
 
 <div id="delete">
-    <h2><b>Delete Ticket</b></h2>
     <form id="delete-ticket">
       <legend><b>Delete Ticket</b></legend>
           <fieldset class="fields">
-            <label> ID </label> <input type="number" name="id">
+            <label> ID: </label> <input type="number" name="id">
     </fieldset>
     <input class="btn" type="submit" id="delete-ticket" value="Delete Ticket">
     <input class="btn" type="button" value="Cancel" >
