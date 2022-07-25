@@ -1,0 +1,81 @@
+<div id = "header">
+    <h1>Instruments</h1>
+    <table id = "quick-links">
+        <tr>
+            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
+            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
+            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
+            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
+            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
+            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
+            <td><a class="link_button" type="button" href="/tickets"> Tickets </a></td>
+        </tr>
+    </table>
+</div>
+
+<div id "data-table">
+    <h2><b>Instrument List</b></h2>
+    <table border=solid cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>Instrument Name</th>
+
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Acoustic Guitar</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Bass Guitar</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Electric Guitar</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Drum Set</td>
+        </tr>
+    </table>
+</div>
+<br>
+
+<div id="add">
+    <h2><b>Add an Instrument</b></h2>
+    <form id="add-instrument">
+        <legend><b>Add an Instrument</b></legend>
+          <fieldset class="fields">
+            <label> Instrument Name </label> <input type="text" name="name">
+          </fieldset>
+          <input class="btn" type="submit" id="add_instrument" value="Add Instrument">
+          <input class="btn" type="button" value="Cancel">
+	</form>
+</div>
+<br>
+
+<div id="update">
+    <h2><b>Update Instrument</b></h2>
+    <form id="update-Instrument">
+      <legend><b>Update Instrument</b></legend>
+          <fieldset class="fields">
+            <label> ID </label> <input type="number" name="id">
+            <label>Instrument Name </label> <input type="text" name="name">
+    </fieldset>
+    <input class="btn" type="submit" id="update-instrument" value="Update Instrument">
+    <input class="btn" type="button" value="Cancel" >
+  </form>
+</div>
+<br>
+
+<div id="delete">
+    <h2><b>Delete Instrument</b></h2>
+    <form id="delete-Instrument">
+      <legend><b>Delete Instrument</b></legend>
+          <fieldset class="fields">
+            <label> ID </label> <input type="number" name="id">
+    </fieldset>
+    <input class="btn" type="submit" id="delete-instrument" value="Delete Instrument">
+    <input class="btn" type="button" value="Cancel" >
+  </form>
+</div>
