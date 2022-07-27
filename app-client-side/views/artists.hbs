@@ -16,35 +16,30 @@
 </div>
 
 <div id "data-table">
-    <h2><b>List of Scheduled Artits</b></h2>
+    <h2><b>List of Scheduled Artists</b></h2>
     <table border=solid cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Genre</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Modest Mouse</td>
-            <td>MM@gmail.com</td>
-            <td>123-456-7890</td>
-            <td>Indie Rock</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>System of a Down</td>
-            <td>sysdown@gmail.com</td>
-            <td>234-567-8901</td>
-            <td>Progressive Metal</td>
-        </tr>
-            <td>3</td>
-            <td>James Taylor</td>
-            <td>jtaylor@aol.com</td>
-            <td>345-678-9012</td>
-            <td>Folk</td>
-        </tr>
+        {{!-- Header section --}}
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{!-- Body Section --}}
+        <tbody>
+            {{#each data}}
+            {{!-- SELECT name, email, phone, genre FROM Artists;; --}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.genre}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 <br>

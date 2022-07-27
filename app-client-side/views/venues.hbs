@@ -17,55 +17,34 @@
 
 <div id "browse">
     <h2><b>Venue List</b></h2>
+    {{!-- Create a table --}}
     <table border=solid cellpadding="5">
-        <tr>
-            <th>Venue ID</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip Code</th>
-            <th>Phone Number</th>
-            <th>Number of Rooms</th>
-            <th>Total Capacity</th>
-            <th>Actions</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Broken Spoke</td>
-            <td>3201 S. Lamar Blvd.</td>
-            <td>Austin</td>
-            <td>TX</td>
-            <td>78704</td>
-            <td>512-442-6189</td>
-            <td>3</td>
-            <td>350</td>
-            <td><a class="venue_mod" name="venue_id" type="button" href="/venue_mod"> Edit/Delete </a></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>SOMA</td>
-            <td>3350 Sports Arena Blvd.</td>
-            <td>San Diego</td>
-            <td>CA</td>
-            <td>NULL</td>
-            <td>619-226-7662</td>
-            <td>1</td>
-            <td>400</td>
-            <td><a class="venue_mod" name="venue_id" type="button" href="/venue_mod"> Edit/Delete </a></td>
-        </tr>
+        {{!-- Header section --}}
+        <thead>
             <tr>
-            <td>3</td>
-            <td>The Crocodile</td>
-            <td>2505 1st Ave.</td>
-            <td>Seattle</td>
-            <td>WA</td>
-            <td>98121</td>
-            <td>206-441-5555</td>
-            <td>2</td>
-            <td>550</td>
-            <td><a class="venue_mod" name="venue_id" type="button" href="/venue_mod"> Edit/Delete </a></td>
-        </tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{!-- Body Section --}}
+        <tbody>
+            {{#each data}}
+            {{!-- SELECT name, address, city, state, zip, phone, num_rooms, total_capacity FROM Venues; --}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.address}}</td>
+                <td>{{this.city}}</td>
+                <td>{{this.state}}</td>
+                <td>{{this.zip}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.num_rooms}}</td>
+                <td>{{this.total_capacity}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 <br>

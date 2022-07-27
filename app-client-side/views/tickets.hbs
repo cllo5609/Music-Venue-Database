@@ -18,29 +18,26 @@
 <div id "data-table">
     <h2><b>Ticket List</b></h2>
     <table border=solid cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Ticket Price</th>
-            <th>Ticket Quantity</th>
-
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>57.99</td>
-            <td>45</td>
-
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>60.00</td>
-            <td>10</td>
-
-        </tr>
+        {{!-- Header section --}}
+        <thead>
             <tr>
-            <td>3</td>
-            <td>38.00</td>
-            <td>99</td>
-        </tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{!-- Body Section --}}
+        <tbody>
+            {{#each data}}
+            {{!-- SELECT ticket_id, ticket_price FROM Tickets; --}}
+            <tr>
+                <td>{{this.ticket_id}}</td>
+                <td>{{this.ticket_price}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 <br>

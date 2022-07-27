@@ -18,22 +18,26 @@
 <div id "data-table">
     <h2><b>Artist Instrument Requests</b></h2>
     <table border=solid cellpadding="5">
-        <tr>
-            <th>Instrument ID</th>
-            <th>Artist ID</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>1</td>
-        </tr>
+        {{!-- Header section --}}
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{!-- Body Section --}}
+        <tbody>
+            {{#each data}}
+            {{!-- SELECT Artists.name AS 'Band', Instruments.instrument_type AS 'Gear'; --}}
+            <tr>
+                <td>{{this.Band}}</td>
+                <td>{{this.Gear}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 <br>

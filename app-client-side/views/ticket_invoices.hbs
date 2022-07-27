@@ -18,26 +18,32 @@
 <div id "data-table">
     <h2><b>Ticket Invoices</b></h2>
     <table border=solid cellpadding="5">
-        <tr>
-            <th>Event ID</th>
-            <th>Performance ID</th>
-            <th>Ticket ID</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>3</td>
-        </tr>
+        {{!-- Header section --}}
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{!-- Body Section --}}
+        <tbody>
+            {{#each data}}
+            {{!-- SELECT Ticket_Invoices.event_id AS 'Invoice', Artists.name AS 'Performing', --}}
+            {{!-- Venues.name AS 'Location', Rooms.name AS 'Room', Performances.performance_date AS 'Date', --}}
+            {{!-- ticket_price AS 'Price'; --}}
+            <tr>
+                <td>{{this.Invoice}}</td>
+                <td>{{this.Performing}}</td>
+                <td>{{this.Location}}</td>
+                <td>{{this.Room}}</td>
+                <td>{{this.Date}}</td>
+                <td>{{this.Price}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 <br>
