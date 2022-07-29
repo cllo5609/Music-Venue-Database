@@ -1,92 +1,101 @@
-<div id = "header">
-    <h1>Venues</h1>
-    <table id = "quick-links">
-        <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
-        </tr>
-    </table>
-</div>
-
+<h1>Venues</h1>
 <div id "browse">
     <h2><b>Venue List</b></h2>
+    {{!-- Create a table --}}
     <table border=solid cellpadding="5">
-        <tr>
-            <th>Venue ID</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip Code</th>
-            <th>Phone Number</th>
-            <th>Number of Rooms</th>
-            <th>Total Capacity</th>
-            <th>Actions</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Broken Spoke</td>
-            <td>3201 S. Lamar Blvd.</td>
-            <td>Austin</td>
-            <td>TX</td>
-            <td>78704</td>
-            <td>512-442-6189</td>
-            <td>3</td>
-            <td>350</td>
-            <td><a class="venue_mod" name="venue_id" type="button" href="/venue_mod"> Edit/Delete </a></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>SOMA</td>
-            <td>3350 Sports Arena Blvd.</td>
-            <td>San Diego</td>
-            <td>CA</td>
-            <td>NULL</td>
-            <td>619-226-7662</td>
-            <td>1</td>
-            <td>400</td>
-            <td><a class="venue_mod" name="venue_id" type="button" href="/venue_mod"> Edit/Delete </a></td>
-        </tr>
+        {{!-- Header section --}}
+        <thead>
             <tr>
-            <td>3</td>
-            <td>The Crocodile</td>
-            <td>2505 1st Ave.</td>
-            <td>Seattle</td>
-            <td>WA</td>
-            <td>98121</td>
-            <td>206-441-5555</td>
-            <td>2</td>
-            <td>550</td>
-            <td><a class="venue_mod" name="venue_id" type="button" href="/venue_mod"> Edit/Delete </a></td>
-        </tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{!-- Body Section --}}
+        <tbody>
+            {{#each data}}
+            {{!-- SELECT name, address, city, state, zip, phone, num_rooms, total_capacity FROM Venues; --}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.address}}</td>
+                <td>{{this.city}}</td>
+                <td>{{this.state}}</td>
+                <td>{{this.zip}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.num_rooms}}</td>
+                <td>{{this.total_capacity}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
-<br>
 
-<div id="add">
+<div id="insert">
+    <h2>Add a New Venue</h2>
+    <form id="add-venue-form">
 
-    <form id="add-venue">
-        <legend><b>Add a New Venue</b></legend>
-          <fieldset class="fields">
-            <label> Name: </label> <input type="text" name="name">
-            <label> Address: </label> <input type="text" name="address">
-            <label> City: </label> <input type="text" name="city">
-            <label> State: </label> <input type="text" name="state"><br>
-            <label> Zip Code: </label> <input type="text" name="zip">
-            <label> Phone Number: </label> <input type="tel" name="phone">
-            <label> Number of Rooms: </label> <input type="text" name="rooms"><br>
-            <label> Total Capacity: </label> <input type="text" name="capacity">
-          </fieldset>
-          <input class="btn" type="submit" id="add_venue" value="Add Venue">
-          <input class="btn" type="button" value="Cancel">
-	</form>
+        <label for="add-name">Name: </label>
+        <input type="text" name="add-name" id="add-name">
+
+        <label for="add-address">Address: </label>
+        <input type="text" name="add-address" id="add-address">
+
+        <label for="add-city">City: </label>
+        <input type="text" name="add-city" id="add-city">
+
+        <label for="add-state">State: </label>
+        <input type="text" name="add-state" id="add-state">
+
+        <label for="add-zip">Zip Code: </label>
+        <input type="number" name="add-zip" id="add-zip">
+
+        <label for="add-phone">Phone: </label>
+        <input type="number" name="add-phone" id="add-phone">
+
+        <label for="add-num-rooms">Number of Rooms: </label>
+        <input type="number" name="add-num-rooms" id="add-num-rooms">
+
+        <label for="add-cap">Totaly Capacity: </label>
+        <input type="number" name="add-cap" id="add-cap">
+
+        <input type="submit">
+    </form>
+
 </div>
-<br>
+<script src="./js/add_venue.js" async></script>
 
+<div id="update">
+    <form action="/venues" id="update-venue">
+      <legend><b>Update Venue Information</b></legend>
+          <fieldset class="fields">
+            <label> Venue ID: </label> <input value="1" name="id"><br>
+            <label> Name: </label> <input value="Broken Spoke" name="name"><br>
+            <label> Address: </label> <input value="3201 S. Lamar Blvd." name="address"><br>
+            <label> City: </label> <input value="Austin" name="city"><br>
+            <label> State: </label> <input value="TX" name="state"><br>
+            <label> Zip Code: </label> <input value="78704" name="zip"><br>
+            <label> Phone Number: </label> <input value="512-442-6189" name="phone"><br>
+            <label> Number of Rooms: </label> <input value="3" name="rooms"><br>
+            <label> Total Capacity: </label> <input value="350" name="capacity"><br>
+    </fieldset>
+    <input class="btn" type="submit" id="update-venue" value="Update Venue">
+    <input class="btn" type="submit" value="Cancel" href="/venues">
+  </form>
+</div>
+
+
+<div id="delete">
+    <form action="/venues" id="delete-venue">
+        <legend><b>Delete a Venue From the Database</b></legend>
+        <fieldset class="fields">
+            <label for="id" >Venue ID:</label> <br>
+            <input value="1">
+    </fieldset>
+    <input class="btn" type="submit" id="delete-venue" value="Delete Venue">
+    <input class="btn" type="submit" value="Cancel" href="/venues">
+  </form>
+</div>
+
+</div>
