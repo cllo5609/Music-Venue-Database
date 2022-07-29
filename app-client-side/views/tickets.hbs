@@ -1,85 +1,51 @@
-<div id = "header">
-    <h1>Tickets</h1>
-    <table id = "quick-links">
+<h1>Tickets</h1>
+<div id="tables">
+<table class="ticket-table" id="ticket-table">
+    <thead class="table-head">
         <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
         </tr>
-    </table>
-</div>
+    </thead>
 
-<div id "data-table">
-    <h2><b>Current Tickets for Upcoming Shows</b></h2>
-    <table border=solid cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Ticket Price</th>
-            <th>Ticket Quantity</th>
+    <tbody class="table-body">
+        {{#each data}}
+        <tr data-value={{this.ticket_id}}>
+            <td>{{this.ticket_id}}</td>
+            <td>{{this.ticket_price}}</td>
+            <td><button onclick="deleteTicket({{this.ticket_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>57.99</td>
-            <td>45</td>
 
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>60.00</td>
-            <td>10</td>
+<h2>Add a New Ticket</h2>
+<form id="add-ticket-form">
 
-        </tr>
-            <tr>
-            <td>3</td>
-            <td>38.00</td>
-            <td>99</td>
-        </tr>
-    </table>
-</div>
+    <label for="add-price">Price Per Ticket: </label>
+    <input type="number" min="0"step="0.01" name="add-price" id="add-price" required="required">
+
+    <input type="submit">
+</form>
 <br>
 
-<div id="add">
-    <form id="add-ticket">
-        <legend><b>Add a Ticket for an Upcoming Performance</b></legend>
-          <fieldset class="fields">
-            <label> Ticket Price: </label> <input type="number" step="0.01" name="price">
-            <label> Ticket Quantity: </label> <input type="number" min="1" max="8" name="quantity">
+<h2>Update Ticket Price</h2>
+<form id="update-ticket-form">
+    <label for="input-id">Ticket ID: </label>
+    <select name="input-id" id="input-id">
+        <option value="test">Select an ID</option>
+        {{#each data}}
+        <option value="{{this.ticket_id}}">{{this.ticket_id}}</option>
+        {{/each}}
+    </select>
 
-          </fieldset>
-          <input class="btn" type="submit" id="add_ticket" value="Add Ticket">
-          <input class="btn" type="button" value="Cancel">
-	</form>
+    <label for="update-price">New Price: </label>
+    <input type="number" min="0"step="0.01" name="update-price" id="update-price">
+    <input type="submit">
+</form>
 </div>
-<br>
-
-<div id="update">
-    <form id="update-ticket">
-      <legend><b>Update Ticket Details</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-            <label> Ticket Price: </label> <input type="number" step="0.01" name="price">
-            <label> Ticket Quantity: </label> <input type="number" name="quantity">
-    </fieldset>
-    <input class="btn" type="submit" id="update-ticket" value="Update Ticket">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
-<br>
-
-<div id="delete">
-    <form id="delete-ticket">
-      <legend><b>Delete Ticket for Scheduled Event</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-    </fieldset>
-    <input class="btn" type="submit" id="delete-ticket" value="Delete Ticket">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
+<script src="./js/mod_ticket.js" async></script>
