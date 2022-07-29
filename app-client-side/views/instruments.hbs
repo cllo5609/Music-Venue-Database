@@ -1,59 +1,37 @@
-<div id = "header">
-    <h1>Instruments</h1>
-    <table id = "quick-links">
-        <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
-        </tr>
-    </table>
-</div>
+<h1>Instruments</h1>
 
-<div id "data-table">
     <h2><b>Instruments Available for Request</b></h2>
-    <table border=solid cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Instrument Name</th>
 
-        </tr>
+<table class="instrument-table" id="instrument-table">
+    <thead class="table-head">
         <tr>
-            <td>1</td>
-            <td>Acoustic Guitar</td>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
         </tr>
-        <tr>
-            <td>2</td>
-            <td>Bass Guitar</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Electric Guitar</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Drum Set</td>
-        </tr>
-    </table>
-</div>
-<br>
+    </thead>
 
-<div id="add">
-    <form id="add-instrument">
-        <legend><b>Add a new Instrument to the Inventory</b></legend>
-          <fieldset class="fields">
-            <label> Instrument Name: </label> <input type="text" name="name">
-          </fieldset>
-          <input class="btn" type="submit" id="add_instrument" value="Add Instrument">
-          <input class="btn" type="button" value="Cancel">
-	</form>
-</div>
-<br>
+    <tbody class="table-body">
+        {{#each data}}
+        <tr>
+            <td>{{this.instrument_id}}</td>
+            <td>{{this.instrument_type}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+
+<form id="add-instrument-form">
+    <h2>Add an instrument </h2>
+    <label for="add-instrument-form" method="POST" action="add-instrument-form"></label>
+    <input type="text" name="add-instrument" id="add-instrument">
+    <input type="submit">
+</form>
+
 
 <div id="update">
     <form id="update-Instrument">
