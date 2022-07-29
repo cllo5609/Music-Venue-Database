@@ -1,27 +1,12 @@
-<div id = "header">
-    <h1>Welcome Page</h1>
-    <table id = "quick-links">
-        <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
-        </tr>
-    </table>
-</div>
-<br>
 
+<div id="welcome-body">
 <h2>Welcome to the Prestige Worldwide Entertainment Database</h2>
 <h3>Use the "quick-links" at the top of the page to navigate through different parts of the database.</h3>
 <h3>Below you will find a description of the actions you can take for each page.</h3>
 <br>
 
-<h2>Venues:</h2>
+
+<a type="button" href="/venues"> Venues </a>
 <p>Note: The "Venues" table will rarely be modified. Modifications will only occur if a venue changes
     or closes permanently, or a new venue under the PWE name is purchased.
 </p>
@@ -31,7 +16,7 @@
     <li>Delete: used only if a venue is no longer a part of PWE </li>
 </ul>
 
-<h2>Rooms:</h2>
+<td><a type="button" href="/rooms"> Rooms </a></td>
 <p>Note: The "Rooms" table will rarely be modified. Modifications will only occur if a venue adds a room to, or removes
     a room from, their establishment.
 </p>
@@ -41,44 +26,45 @@
     <li>Delete: used only if a venue removes a room from their establishment</li>
 </ul>
 
-<h2>Performances:</h2>
+<a type="button" href="/performances"> Performances </a>
 <ul>
     <li>Add: add an upcoming performance to a room at a venue on a specified date</li>
     <li>Update: modify details regarding an upcoming performance</li>
     <li>Delete: cancel a performance. Remove a performance from the schedule.</li>
 </ul>
 
-<h2>Artists:</h2>
+<a type="button" href="/artists"> Artists </a>
 <ul>
     <li>Add: add information about an artist set to perform at one of the PWE owned venues</li>
     <li>Update: modify details of a performer. E.G. phone, email</li>
     <li>Delete: remove an artist from an upcoming performance</li>
 </ul>
 
-<h2>Instruments:</h2>
+<a type="button" href="/instruments"> Instruments </a>
 <ul>
     <li>Add: add an instrument to the list of instruments needed for a performance</li>
     <li>Update: modify the name of an instrument</li>
     <li>Delete: remove an instrument from the table of requested instruments</li>
 </ul>
 
-<h2>Tickets:</h2>
+<a type="button" href="/tickets"> Tickets </a></td>
 <ul>
     <li>Add: add information about a ticket to see a specified artist.</li>
     <li>Update: modify details for the ticket. E.G. price, quantity</li>
     <li>Delete: remove the ticket associated with an artist. </li>
 </ul>
 
-<h2>Ticket_Invoices</h2>
+<a type="button" href="/ticket_invoices"> Ticket Invoices </a>
 <ul>
     <li>Add: facilitates the relationship between Tickets and a Performance by adding IDs that specify details about the show.</li>
     <li>Update: modify details between a performance a ticket (e.g. a change in rooms at a venue.</li>
     <li>Delete: remove the event between the two tables entirely </li>
 </ul>
 
-<h2>Artist_Needs_Instruments</h2>
+<a type="button" href="/artist_needs_ins"> Requested Instruments </a>
 <ul>
     <li>Add: facilitates the relationship between Artists and required Instruments by holding IDs that specify details about between the two.</li>
     <li>Update: modify details between an Artist and the Instruments (e.g. need multiple of the same instrument, many different instruments.</li>
     <li>Delete: remove the event between the two tables entirely if the instrument is no longer requested. </li>
 </ul>
+</div>
