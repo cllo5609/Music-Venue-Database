@@ -1,51 +1,46 @@
-<div id = "header">
-    <h1>Artists</h1>
-    <table id = "quick-links">
-        <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
-        </tr>
-    </table>
-</div>
+<h1>Artists</h1>
 
 <div id "data-table">
-    <h2><b>List of Scheduled Artits</b></h2>
+    <h2><b>List of Scheduled Artists</b></h2>
     <table border=solid cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Genre</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Modest Mouse</td>
-            <td>MM@gmail.com</td>
-            <td>123-456-7890</td>
-            <td>Indie Rock</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>System of a Down</td>
-            <td>sysdown@gmail.com</td>
-            <td>234-567-8901</td>
-            <td>Progressive Metal</td>
-        </tr>
-            <td>3</td>
-            <td>James Taylor</td>
-            <td>jtaylor@aol.com</td>
-            <td>345-678-9012</td>
-            <td>Folk</td>
-        </tr>
+        {{!-- Header section --}}
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{!-- Body Section --}}
+        <tbody>
+            {{#each data}}
+            {{!-- SELECT name, email, phone, genre FROM Artists;; --}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.genre}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
+</div>
+<br>
+
+<div id="add">
+    <form id="add-artist">
+        <legend><b>Add a new Artist</b></legend>
+          <fieldset class="fields">
+            <label> Name: </label> <input type="text" name="name">
+            <label> Email: </label> <input type="email" name="email">
+            <label> Phone: </label> <input type="tel" name="phone">
+            <label> Genre: </label> <input type="text" name="genre">
+          </fieldset>
+          <input class="btn" type="submit" id="add_artist" value="Add Artist">
+          <input class="btn" type="button" value="Cancel">
+	</form>
 </div>
 <br>
 
