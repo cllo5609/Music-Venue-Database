@@ -1,0 +1,43 @@
+#header {
+    vertical-align: top;
+    padding-right:5%
+}
+
+#left, #right {
+    display: inline-block;
+
+}
+
+body {
+
+    margin:auto;
+    height: 100%;
+    display: table;
+    margin-left: 5%;
+    margin-right: 5%;
+    }
+
+#content {
+    max-width:1000px;
+}
+
+#welcome-body {
+    max-width:900px;
+}
+    .venue-table {
+        border:solid;
+        padding:5px;
+        }
+
+    .table-head th {
+        border:solid;
+    }
+
+    .table-body td {
+        border:solid;
+    }
+
+#tables form {
+    border-style: solid;
+    padding:5px;
+}
