@@ -15,44 +15,35 @@
 
     <tbody class="table-body">
         {{#each data}}
-        <tr>
+        <tr data-value={{this.instrument_id}}>
             <td>{{this.instrument_id}}</td>
             <td>{{this.instrument_type}}</td>
+            <td><button onclick="deleteInstrument({{this.instrument_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
-
-
+<h2>Add a New Instrument</h2>
 <form id="add-instrument-form">
-    <h2>Add an instrument </h2>
-    <label for="add-instrument-form" method="POST" action="add-instrument-form"></label>
-    <input type="text" name="add-instrument" id="add-instrument">
+    <label for="add-type">Instrument Name: </label>
+    <input type="text" name="add-type" id="add-type" required="required">
     <input type="submit">
 </form>
-
-
-<div id="update">
-    <form id="update-Instrument">
-      <legend><b>Update Details of an Instrument</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-            <label>Instrument Name: </label> <input type="text" name="name">
-    </fieldset>
-    <input class="btn" type="submit" id="update-instrument" value="Update Instrument">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
 <br>
 
-<div id="delete">
-    <form id="delete-Instrument">
-      <legend><b>Remove an Instrument from the Inventory</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-    </fieldset>
-    <input class="btn" type="submit" id="delete-instrument" value="Delete Instrument">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
+<h2>Update Ticket Price</h2>
+<form id="update-instrument-form">
+    <label for="ins-id">Instrument ID: </label>
+    <select name="ins-id" id="ins-id">
+        <option value="test">Select an ID</option>
+        {{#each data}}
+        <option value="{{this.instrument_id}}">{{this.instrument_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-type">New Type: </label>
+    <input type="text" name="update-type" id="update-type">
+    <input type="submit">
+</form>
+<script src="./js/mod_instrument.js" async></script>
