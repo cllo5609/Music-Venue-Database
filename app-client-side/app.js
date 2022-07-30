@@ -8,7 +8,7 @@ var express = require('express');
 var app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-PORT = 37291;
+PORT = 37293;
 
 // Database
 var db = require('./database/db-connector')
@@ -33,17 +33,17 @@ app.get('/', (req, res) =>{
 
 // Venue Page
 app.get('/venues', (req, res) =>{
-    let query_venues = "SELECT name, address, city, state, zip, phone, num_rooms, total_capacity FROM Venues;";
+    let query_venues = "SELECT venue_id, name, address, city, state, zip, phone, num_rooms, total_capacity FROM Venues;";
     db.pool.query(query_venues, function(errors, rows, fields) {
         res.render('venues', {data:rows})
     });
 });
+
 app.post('/add-venue', (req, res) =>{
     let data = req.body;
     // CREATE query
     console.log(data)
-    query1 = `INSERT INTO Venues (venue_id, name, address, city, state, zip, phone, num_rooms, total_capacity) VALUES ('${data.venue_id}', '${data.vname}',\
-     '${data.vaddress}' ,'${data.vcity}' ,'${data.vstate}' ,'${data.vzip}' ,'${data.vphone}' ,'${data.vrooms}' ,'${data.vcapacity}')`;
+    query1 = `INSERT INTO Venues (name, address, city, state, zip, phone, num_rooms, total_capacity) VALUES ("${data.vname}", '${data.vaddress}', '${data.vcity}', '${data.vstate}', ${data.vzip}, ${data.vphone}, ${data.vrooms}, ${data.vcapacity})`;
     db.pool.query(query1, function(error, rows, fields){
 
         if (error) {
@@ -69,6 +69,56 @@ app.post('/add-venue', (req, res) =>{
         }
     })
 });
+
+app.delete('/delete-venue/', function(req,res,next){
+    let data = req.body;
+    let venueID = parseInt(data.id);
+    console.log("ID", venueID)
+    let deleteVenueQuery = `DELETE FROM Venues WHERE venue_id = ?`;
+
+          db.pool.query(deleteVenueQuery, [venueID], function(error, rows, fields){
+              if (error) {
+
+              console.log(error);
+              res.sendStatus(400);
+              }
+
+              else
+              {
+                res.sendStatus(204);
+              }
+  })});
+
+app.put('/update-venue', function(req,res,next){
+    let data = req.body;
+
+    // Issue with Query
+    let queryUpdateVenue = `UPDATE Venues SET venue_id = ${data.vid}, name = '${data.vname}', address = '${data.vaddress}', city = '${data.vcity}', state = '${data.vstate}', zip = ${data.vzip}, phone = ${data.vphone}, num_rooms = ${data.vrooms}, total_capacity = ${data.vcapacity} WHERE venue_id = ${data.vid}`;
+    let selectVenue = `SELECT * FROM Venues WHERE venue_id = ${data.vid}`;
+    console.log(queryUpdateVenue)
+
+          db.pool.query(queryUpdateVenue, function(error, rows, fields){
+              if (error) {
+
+              console.log(error);
+              res.sendStatus(400);
+              }
+
+              else
+              {
+
+                  db.pool.query(selectVenue, function(error, rows, fields) {
+
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                            console.log("SENDIT")
+                          res.send(rows);
+                      }
+                  })
+              }
+  })});
 
 // Rooms Page
 app.get('/rooms', (req, res) =>{
@@ -135,9 +185,8 @@ app.post('/add-room', function(req, res)
 });
 
 // Performances Page
-// Performances Page
 app.get('/performances', (req, res) =>{
-    let query_performances = "SELECT Artists.name, Performances.performance_date, ticket_price, Performances.tickets_available FROM Tickets INNER JOIN Performances ON Tickets.ticket_id=Performances.ticket_id INNER JOIN Artists ON Performances.artist_id=Artists.artist_id;";
+    let query_performances = "SELECT Performances.performance_id, Artists.name, Performances.performance_date, ticket_price, Performances.tickets_available FROM Tickets INNER JOIN Performances ON Tickets.ticket_id=Performances.ticket_id INNER JOIN Artists ON Performances.artist_id=Artists.artist_id;";
     db.pool.query(query_performances, function(errors, rows, fields) {
         res.render('performances', {data:rows});
     });
@@ -145,12 +194,91 @@ app.get('/performances', (req, res) =>{
 
 // Artists Page
 app.get('/artists', (req, res) =>{
-    let query_artists = "SELECT name, email, phone, genre FROM Artists;";
+    let query_artists = "SELECT artist_id, name, email, phone, genre FROM Artists;";
     db.pool.query(query_artists, function(errors, rows, fields) {
         res.render('artists', {data:rows});
     });
 });
 
+app.post('/add-artist', (req, res) =>{
+let data = req.body;
+console.log(data)
+query1 = `INSERT INTO Artists (name, email, phone, genre) VALUES ('${data.aname}','${data.aemail}', ${data.aphone}, '${data.agenre}')`;
+db.pool.query(query1, function(error, rows, fields){
+
+    if (error) {
+
+        console.log(error)
+        res.sendStatus(400);
+    }
+    else
+    {
+        query2 = 'SELECT * FROM Artists;';
+        db.pool.query(query2, function(error, rows, fields){
+
+            if (error) {
+                console.log(error);
+                res.sendStatus(400);
+            }
+            else
+            {
+                console.log("SENDIng")
+                res.send(rows);
+            }
+        })
+    }
+})
+});
+
+app.delete('/delete-artist/', function(req,res,next){
+    let data = req.body;
+    let artistID = parseInt(data.id);
+    let deleteArtist = `DELETE FROM Artists WHERE artist_id = ?`;
+
+          db.pool.query(deleteArtist, [artistID], function(error, rows, fields){
+              if (error) {
+
+              console.log(error);
+              res.sendStatus(400);
+              }
+
+              else
+              {
+                res.sendStatus(204);
+              }
+  })
+});
+
+app.put('/update-artist', function(req,res,next){
+    let data = req.body;
+    let art_id = parseInt(data.aid);
+    let queryUpdateArtist = `UPDATE Artists SET name = '${data.aname}', email = '${data.aemail}', phone = ${data.aphone}, genre = '${data.agenre}' WHERE artist_id = ${art_id}`;
+    let selectArtist = `SELECT * FROM Artists WHERE artist_id = ${art_id}`;
+    console.log(queryUpdateArtist)
+
+          db.pool.query(queryUpdateArtist, function(error, rows, fields){
+              if (error) {
+
+              console.log(error);
+              res.sendStatus(400);
+              }
+
+              else
+              {
+
+                  db.pool.query(selectArtist, function(error, rows, fields) {
+
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                            console.log("SENDIT")
+                          res.send(rows);
+                      }
+                  })
+              }
+  })
+});
 // Instruments Page
 app.get('/instruments', (req, res) =>{
     let query_instruments = "SELECT instrument_id, instrument_type FROM Instruments;";
@@ -159,17 +287,10 @@ app.get('/instruments', (req, res) =>{
     });
 });
 
-app.post('/add-instrument-form', (req, res) => {
+app.post('/add-instrument', (req, res) =>{
     let data = req.body;
-
-
-    let instrument = parseInt(data['add-instrument']);
-    if (isNaN(instrument))
-    {
-        instrument = 'NULL'
-    }
-
-    query1 = `INSERT INTO instruments (instrument_type) VALUES ('${data['instrument-type']}')`;
+    console.log(data)
+    query1 = `INSERT INTO Instruments (instrument_id, instrument_type) VALUES ('${data.instrument_id}','${data.iname}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         if (error) {
@@ -179,10 +300,75 @@ app.post('/add-instrument-form', (req, res) => {
         }
         else
         {
-            res.redirect('/instruments');
+            query2 = 'SELECT * FROM Instruments;';
+            db.pool.query(query2, function(error, rows, fields){
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else
+                {
+                    console.log("SENDIng")
+                    res.send(rows);
+                }
+            })
         }
     })
-})
+});
+
+app.delete('/delete-instrument/', function(req,res,next){
+    let data = req.body;
+    let instrumentID = parseInt(data.id);
+    let deleteInstrument = `DELETE FROM Instruments WHERE instrument_id = ?`;
+
+          db.pool.query(deleteInstrument, [instrumentID], function(error, rows, fields){
+              if (error) {
+
+              console.log(error);
+              res.sendStatus(400);
+              }
+
+              else
+              {
+                res.sendStatus(204);
+              }
+  })
+});
+
+
+app.put('/update-instrument', function(req,res,next){
+    let data = req.body;
+    let ins_id = parseInt(data.iid);
+    // Issue with Query
+    let queryUpdateInstrument = `UPDATE Instruments SET instrument_type = '${data.itype}' WHERE instrument_id = ${ins_id}`;
+    let selectInstrument = `SELECT * FROM Instruments WHERE instrument_id = ${ins_id}`;
+    console.log(queryUpdateInstrument)
+
+          db.pool.query(queryUpdateInstrument, function(error, rows, fields){
+              if (error) {
+
+              console.log(error);
+              res.sendStatus(400);
+              }
+
+              else
+              {
+
+                  db.pool.query(selectInstrument, function(error, rows, fields) {
+
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                            console.log("SENDIT")
+                          res.send(rows);
+                      }
+                  })
+              }
+  })
+});
+
 
 // Tickets Page
 app.get('/tickets', (req, res) =>{
@@ -238,7 +424,8 @@ app.delete('/delete-ticket/', function(req,res,next){
               {
                 res.sendStatus(204);
               }
-  })});
+  })
+});
 
 app.put('/update-ticket', function(req,res,next){
     let data = req.body;
@@ -246,7 +433,7 @@ app.put('/update-ticket', function(req,res,next){
     let tic_id = parseInt(data.tid);
     let price = parseInt(data.price);
     let queryUpdateTicket = `UPDATE Tickets SET ticket_price = ${data.price} WHERE ticket_id = ${data.tid}`;
-    let selectTicket = `SELECT * FROM Tickets WHERE ticket_id = ${data.tid}`
+    let selectTicket = `SELECT * FROM Tickets WHERE ticket_id = ${data.tid}`;
     console.log(queryUpdateTicket)
 
           db.pool.query(queryUpdateTicket, function(error, rows, fields){
@@ -270,7 +457,8 @@ app.put('/update-ticket', function(req,res,next){
                       }
                   })
               }
-  })});
+  })
+});
 
 
 // Ticket Invoices Page
