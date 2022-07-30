@@ -53,32 +53,14 @@ function deleteTicket(ticketID) {
 
     // Resolve request
     xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 204) {
 
-            deleteRow(ticketID);
-
-        }
-        else if (xhttp.readyState == 4 && xhttp.status != 204) {
+        if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")
         }
     }
 
     xhttp.send(JSON.stringify(data));
-
     location.reload();
-}
-
-
-function deleteRow(personID){
-
-    let table = document.getElementById("ticket-table");
-    for (let i = 0, row; row = table.rows[i]; i++) {
-       //iterate through rows
-       if (table.rows[i].getAttribute("data-value") == ticketID) {
-            table.deleteRow(i);
-            break;
-       }
-    }
 }
 
 
@@ -114,7 +96,7 @@ updateTicketForm.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            updateRow(xhttp.response, priceValue);
+            inputPrice.value = '';
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -126,23 +108,3 @@ updateTicketForm.addEventListener("submit", function (e) {
     xhttp.send(JSON.stringify(data));
     location.reload();
 })
-
-
-function updateRow(data, ticketID){
-    let parsedData = JSON.parse(data);
-
-    let table = document.getElementById("ticket-table");
-
-    for (let i = 0, row; row = table.rows[i]; i++) {
-       //iterate through rows
-       if (table.rows[i].getAttribute("data-value") == ticketID) {
-
-
-            let updateRowIndex = table.getElementsByTagName("tr")[i];
-
-            let td = updateRowIndex.getElementsByTagName("td")[3];
-
-            td.innerHTML = parsedData[0].name;
-       }
-    }
-}
