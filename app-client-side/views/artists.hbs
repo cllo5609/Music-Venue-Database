@@ -2,9 +2,9 @@
 
 <div id "data-table">
     <h2><b>List of Scheduled Artists</b></h2>
-    <table border=solid cellpadding="5">
+    <table class="artist-table" id="artist-table">
         {{!-- Header section --}}
-        <thead>
+        <thead class="table-head">
             <tr>
                 {{#each data.[0]}}
                 <th>
@@ -14,14 +14,16 @@
             </tr>
         </thead>
         {{!-- Body Section --}}
-        <tbody>
+        <tbody class="table-body">
             {{#each data}}
             {{!-- SELECT name, email, phone, genre FROM Artists;; --}}
-            <tr>
+            <tr data-value={{this.artist_id}}>
+                <td>{{this.artist_id}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.email}}</td>
                 <td>{{this.phone}}</td>
                 <td>{{this.genre}}</td>
+                <td><button onclick="deleteArtist({{this.artist_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -29,59 +31,50 @@
 </div>
 <br>
 
-<div id="add">
-    <form id="add-artist">
-        <legend><b>Add a new Artist</b></legend>
-          <fieldset class="fields">
-            <label> Name: </label> <input type="text" name="name">
-            <label> Email: </label> <input type="email" name="email">
-            <label> Phone: </label> <input type="tel" name="phone">
-            <label> Genre: </label> <input type="text" name="genre">
-          </fieldset>
-          <input class="btn" type="submit" id="add_artist" value="Add Artist">
-          <input class="btn" type="button" value="Cancel">
-	</form>
-</div>
+<h2>Add a New Artist</h2>
+<form id="add-artist-form">
+
+    <label for="add-artist">Group Name: </label>
+    <input type="text" name="add-artist" id="add-artist" required="required">
+
+    <label for="add-email">Email: </label>
+    <input type="email" name="add-email" id="add-email" required="required">
+
+    <label for="add-phone">Phone: </label>
+    <input type="tel" name="add-phone" id="add-phone" required="required">
+
+    <label for="add-genre">Genre: </label>
+    <input type="text" name="add-genre" id="add-genre" required="required">
+
+    <input type="submit">
+</form>
 <br>
 
-<div id="add">
-    <form id="add-artist">
-        <legend><b>Add a new Artist</b></legend>
-          <fieldset class="fields">
-            <label> Name: </label> <input type="text" name="name">
-            <label> Email: </label> <input type="email" name="email">
-            <label> Phone: </label> <input type="tel" name="phone">
-            <label> Genre: </label> <input type="text" name="genre">
-          </fieldset>
-          <input class="btn" type="submit" id="add_artist" value="Add Artist">
-          <input class="btn" type="button" value="Cancel">
-	</form>
-</div>
-<br>
+<h2>Update Artist Details</h2>
+<form id="update-artist-form">
+    <label for="input-id">Artist ID: </label>
+    <select name="input-id" id="input-id">
+        <option value="test">Select an ID</option>
+        {{#each data}}
+        <option value="{{this.artist_id}}">{{this.artist_id}}</option>
+        {{/each}}
+    </select>
 
-<div id="update">
-    <form id="update-artist">
-      <legend><b>Update Details of an Artist</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-            <label> Name: </label> <input type="text" name="name">
-            <label> Email: </label> <input type="email" name="email">
-            <label> Phone: </label> <input type="tel" name="phone">
-            <label> Genre: </label> <input type="text" name="genre">
-    </fieldset>
-    <input class="btn" type="submit" id="update-artist" value="Update Artist">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
-<br>
+    <label for="update-name">Name: </label>
+    <input type="text" name="update-name" id="update-name">
 
-<div id="delete">
-    <form id="delete-artist">
-      <legend><b>Remove an Scheduled Artist</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-    </fieldset>
-    <input class="btn" type="submit" id="delete-artist" value="Delete Artist">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
+    <label for="update-email">Email: </label>
+    <input type="email" name="update-email" id="update-email">
+
+    <label for="update-phone">Phone: </label>
+    <input type="tel" name="update-phone" id="update-phone">
+
+    <label for="update-genre">Genre: </label>
+    <input type="text" name="update-genre" id="update-genre">
+
+    <input type="submit">
+
+
+</form>
+
+<script src="./js/mod_artist.js" async></script>
