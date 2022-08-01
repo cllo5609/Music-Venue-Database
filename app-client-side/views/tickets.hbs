@@ -1,85 +1,81 @@
-<div id = "header">
+<div class="page-title">
     <h1>Tickets</h1>
-    <table id = "quick-links">
-        <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
-        </tr>
-    </table>
+</div>
+<div class="container">
+    <div class="content-body">
+        <div class="page-desc">
+            <h2>Here you can add, update or delete an instrument request for an upcoming artist/group.</h2><br>
+            <h3>Dont see the artist/group or instrument you're looking for in the form dropdown menu?</h3>
+            <h3>Use the 'Artists' page to add a new artist to the database or use the 'Instruments' page</h3>
+            <h3>to add a new instrument.</h3>
+        </div>
+        <br>
+        <h2><b>Tickets for upcoming performances</b></h2>
+        <table class="sharp-table">
+            <thead class="table-head">
+                <tr>
+                    {{#each data.[0]}}
+                        <th>
+                            {{@key}}
+                        </th>
+                    {{/each}}
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                {{#each data}}
+                    <tr data-value={{this.ID}}>
+                        <td>{{this.ID}}</td>
+                        <td>{{this.Price}}</td>
+                        <td><button onclick="deleteTicket({{this.ID}})" class="delete-button">Delete</button></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new ticket</button>
+        <div class="form-body" id="show-add">
+            <form class="sharp-form" id="add-ticket-form">
+                <div class="form-title">Add a New Ticket</div>
+                <p class="form-desc">
+                    INPUT DESCRIPTION HERE
+                </p>
+                <div class="form-item">
+                    <label for="add-price" class="form-label">Price Per Ticket: </label>
+                    <input type="number" class="form-input" min="0"step="0.01" name="add-price" id="add-price" required="required">
+                </div>
+                <div class="form-item">
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update a ticket</button>
+        <div class="form-body" id="show-update">
+            <form class="sharp-form" id="update-ticket-form">
+                <div class="form-title">Update a Ticket</div>
+                <p class="form-desc">
+                    INPUT DESCRIPTION HERE
+                </p>
+                <div class="form-item">
+                    <label for="input-id" class="form-label">Ticket ID: </label>
+                    <select class="form-dropdown" name="input-id" id="input-id">
+                        <option value="test">Select an ID</option>
+                        {{#each data}}
+                            <option value="{{this.ID}}">{{this.ID}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="update-price" class="form-label">Price Per Ticket: </label>
+                    <input type="number" class="form-input" min="0"step="0.01" name="update-price" id="update-price" required="required">
+                </div>
+                <div class="form-item">
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<div id "data-table">
-    <h2><b>Current Tickets for Upcoming Shows</b></h2>
-    <table border=solid cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Ticket Price</th>
-            <th>Ticket Quantity</th>
-
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>57.99</td>
-            <td>45</td>
-
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>60.00</td>
-            <td>10</td>
-
-        </tr>
-            <tr>
-            <td>3</td>
-            <td>38.00</td>
-            <td>99</td>
-        </tr>
-    </table>
-</div>
-<br>
-
-<div id="add">
-    <form id="add-ticket">
-        <legend><b>Add a Ticket for an Upcoming Performance</b></legend>
-          <fieldset class="fields">
-            <label> Ticket Price: </label> <input type="number" step="0.01" name="price">
-            <label> Ticket Quantity: </label> <input type="number" min="1" max="8" name="quantity">
-
-          </fieldset>
-          <input class="btn" type="submit" id="add_ticket" value="Add Ticket">
-          <input class="btn" type="button" value="Cancel">
-	</form>
-</div>
-<br>
-
-<div id="update">
-    <form id="update-ticket">
-      <legend><b>Update Ticket Details</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-            <label> Ticket Price: </label> <input type="number" step="0.01" name="price">
-            <label> Ticket Quantity: </label> <input type="number" name="quantity">
-    </fieldset>
-    <input class="btn" type="submit" id="update-ticket" value="Update Ticket">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
-<br>
-
-<div id="delete">
-    <form id="delete-ticket">
-      <legend><b>Delete Ticket for Scheduled Event</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-    </fieldset>
-    <input class="btn" type="submit" id="delete-ticket" value="Delete Ticket">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
+<script src="./js/mod_ticket.js" async></script>
