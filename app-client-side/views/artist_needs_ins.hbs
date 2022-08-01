@@ -1,76 +1,118 @@
-<div id = "header">
+<div class="page-title">
     <h1>Requested Instruments</h1>
-    <table id = "quick-links">
-        <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
-        </tr>
-    </table>
+</div>
+<div class="container">
+    <div class="content-body">
+        <div class="page-desc">
+            <h2>Here you can add, update or delete an instrument request by an upcoming performer(s).</h2><br>
+            <h3>Don't see the artist/group or instrument you're looking for in the form dropdown menu?</h3>
+            <h3>Use the 'Artists' page to add a new artist to the database or use the 'Instruments' page</h3>
+            <h3>to add a new instrument.</h3>
+        </div>
+        <br>
+
+        <h2><b>Artist Instrument Requests</b></h2>
+        <table class="sharp-table">
+            {{!-- Header section --}}
+            <thead >
+                <tr>
+                    {{#each data.[0]}}
+                        <th>
+                            {{@key}}
+                        </th>
+                    {{/each}}
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            {{!-- Body Section --}}
+            <tbody class="table-body">
+                {{#each data}}
+                    {{!-- SELECT Artists.name AS 'Band', Instruments.instrument_type AS 'Gear'; --}}
+                    <tr>
+                        <td>{{this.ID}}</td>
+                        <td>{{this.Band}}</td>
+                        <td>{{this.Gear}}</td>
+                        <td><button onclick="deleteRequest({{this.ID}})"class="delete-button">Delete</button></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <br>
+
+        <button class="display-form-button" onclick="displayAddForm()">Click here to request an instrument</button>
+        <div class="form-body" id="show-add">
+            <form class="sharp-form" id="add-request-form">
+                <div class="form-title">Add a Request</div>
+                <p class="form-desc">
+                    Select the name of the artist/group and the instrument they are <br>
+                    requesting using the dropdown boxes below, then hit submit.
+                </p>
+                <div class="form-item">
+                    <label class="form-label" for="add-name">Artist Name: </label>
+                    <select class="form-dropdown" name="add-name" id="add-name">
+                        <option value="test">Select Artist</option>
+                        {{#each data2}}
+                            <option class="form-input" value="{{this.name}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label class="form-label" for="add-inst">Instrument: </label>
+                    <select class="form-dropdown" name="add-inst" id="add-inst">
+                        <option value="test">Select Instrument</option>
+                        {{#each data3}}
+                            <option class"form-input" value="{{this.instrument_type}}">{{this.instrument_type}}</option>
+                        {{/each}}
+                    </select>
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update an existing request</button>
+        <div class="form-body" id="show-update">
+            <form class="sharp-form" id="update-request-form">
+                <div class="form-title">Update a Request</div>
+                <p class="form-desc">
+                    Select the ID of the entry that you wish to edit using the dropdown menu below.
+                    Add the artist and instrument they are requesting, then hit submit.
+                </p>
+                <div class="form-item">
+                    <label class="form-label" for="input-id">Request ID: </label>
+                    <select class="form-dropdown" name="input-id" id="input-id">
+                        <option value="test">Select an ID</option>
+                        {{#each data}}
+                            <option class="form-input" value="{{this.ID}}">{{this.ID}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label" for="update-name">Artist Name: </label>
+                    <select class="form-dropdown" name="update-name" id="update-name">
+                        <option value="test">Select Artist</option>
+                        {{#each data2}}
+                            <option class="form-input" value="{{this.name}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-item">
+                    <label class="form-label" for="update-inst">Instrument: </label>
+                    <select class="form-dropdown" name="update-inst" id="update-inst">
+                        <option value="test">Select Instrument</option>
+                        {{#each data3}}
+                            <option class="form-input" value="{{this.instrument_type}}">{{this.instrument_type}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-item">
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<div id "data-table">
-    <h2><b>Artist Instrument Requests</b></h2>
-    <table border=solid cellpadding="5">
-        <tr>
-            <th>Instrument ID</th>
-            <th>Artist ID</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>1</td>
-        </tr>
-    </table>
-</div>
-<br>
-
-<div id="add">
-    <form id="add-request">
-        <legend><b>Add an Instrument Request</b></legend>
-          <fieldset class="fields">
-            <label> Instrument ID: </label> <input type="number" name="ins_id"> <br>
-            <label> Artist ID: </label> <input type="number" name="artist_id">
-          </fieldset>
-          <input class="btn" type="submit" id="add_request" value="Add Request">
-          <input class="btn" type="button" value="Cancel">
-	</form>
-</div>
-<br>
-
-<div id="update">
-    <form id="update-request">
-      <legend><b>Update Details of a Request</b></legend>
-          <fieldset class="fields">
-            <label> Instrument ID: </label> <input type="number" name="ins_id">
-            <label> Artist ID: </label> <input type="number" name="artist_id">
-    </fieldset>
-    <input class="btn" type="submit" id="update-request" value="Update Request">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
-<br>
-
-<div id="delete">
-    <form id="delete-request">
-      <legend><b>Delete a Requested Instrument</b></legend>
-          <fieldset class="fields">
-            <label> Event ID </label> <input type="number" name="id">
-    </fieldset>
-    <input class="btn" type="submit" id="delete-request" value="Delete Request">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
+<script src="./js/mod_artist_needs_ins.js" async></script>
