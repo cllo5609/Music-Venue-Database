@@ -1,80 +1,82 @@
-<div id = "header">
+<div class="page-title">
     <h1>Instruments</h1>
-    <table id = "quick-links">
-        <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
-        </tr>
-    </table>
 </div>
+<div class="container">
+    <div class="content-body">
+        <div class="page-desc">
+            <h2>Here you can add, update or delete an instrument request for an upcoming artist/group.</h2><br>
+            <h3>Dont see the artist/group or instrument you're looking for in the form dropdown menu?</h3>
+            <h3>Use the 'Artists' page to add a new artist to the database or use the 'Instruments' page</h3>
+            <h3>to add a new instrument.</h3>
+        </div>
+        <br>
 
-<div id "data-table">
-    <h2><b>Instruments Available for Request</b></h2>
-    <table border=solid cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Instrument Name</th>
+        <h2><b>Instruments Available for Request</b></h2>
+        <table class="sharp-table">
+            <thead class="table-head">
+                <tr>
+                    {{#each data.[0]}}
+                        <th>
+                            {{@key}}
+                        </th>
+                    {{/each}}
+                    <th>Remove</th>
+                </tr>
+            </thead>
 
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Acoustic Guitar</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Bass Guitar</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Electric Guitar</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Drum Set</td>
-        </tr>
-    </table>
+            <tbody class="table-body">
+                {{#each data}}
+                    <tr data-value={{this.ID}}>
+                        <td>{{this.ID}}</td>
+                        <td>{{this.Instrument}}</td>
+                        <td><button onclick="deleteInstrument({{this.ID}})" class="delete-button">Delete</button></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new instrument</button>
+        <div class="form-body" id="show-add">
+            <form class="sharp-form" id="add-instrument-form">
+                <div class="form-title">Add a Ticket</div>
+                <p class="form-desc">
+                    INPUT DESCRIPTION HERE
+                </p>
+                <div class="form-item">
+                    <label for="add-type" class="form-label">Instrument Name:</label>
+                    <input type="text" class="form-input" name="add-type" id="add-type" placeholder="(e.g. tuba)" required="required">
+                </div>
+                <div class="form-item">
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update an existing instrument</button>
+        <div class="form-body" id="show-update">
+            <form class="sharp-form" id="update-instrument-form">
+                <div class="form-title">Update an Instrument</div>
+                <p class="form-desc">
+                    INPUT DESCRIPTION HERE
+                </p>
+                <div class="form-item">
+                    <label for="ins-id" class="form-label">Instrument ID:</label>
+                    <select class="form-dropdown" name="ins-id" id="ins-id">
+                        <option  value="test">Select an ID</option>
+                        {{#each data}}
+                            <option class="form-input" value="{{this.ID}}">{{this.ID}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="update-type"class="form-label">Instrument Name: </label>
+                    <input type="text" class="form-input" name="update-type" id="update-type" placeholder="(e.g. bango)">
+                </div>
+                <div class="form-item">
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<br>
-
-<div id="add">
-    <form id="add-instrument">
-        <legend><b>Add a new Instrument to the Inventory</b></legend>
-          <fieldset class="fields">
-            <label> Instrument Name: </label> <input type="text" name="name">
-          </fieldset>
-          <input class="btn" type="submit" id="add_instrument" value="Add Instrument">
-          <input class="btn" type="button" value="Cancel">
-	</form>
-</div>
-<br>
-
-<div id="update">
-    <form id="update-Instrument">
-      <legend><b>Update Details of an Instrument</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-            <label>Instrument Name: </label> <input type="text" name="name">
-    </fieldset>
-    <input class="btn" type="submit" id="update-instrument" value="Update Instrument">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
-<br>
-
-<div id="delete">
-    <form id="delete-Instrument">
-      <legend><b>Remove an Instrument from the Inventory</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-    </fieldset>
-    <input class="btn" type="submit" id="delete-instrument" value="Delete Instrument">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
+<script src="./js/mod_instrument.js" async></script>
