@@ -1,92 +1,123 @@
-<div id = "header">
+<div class="page-title">
     <h1>Artists</h1>
-    <table id = "quick-links">
-        <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
-        </tr>
-    </table>
+</div>
+<div class="container">
+    <div class="content-body">
+        <div class="page-desc">
+            <h2>Here you can add, update or delete an instrument request for an upcoming artist/group.</h2><br>
+            <h3>Dont see the artist/group or instrument you're looking for in the form dropdown menu?</h3>
+            <h3>Use the 'Artists' page to add a new artist to the database or use the 'Instruments' page</h3>
+            <h3>to add a new instrument.</h3>
+        </div>
+        <br>
+
+        <h2><b>List of Scheduled Artists</b></h2>
+        <table class="sharp-table">
+            {{!-- Header section --}}
+            <thead class="table-head">
+                <tr>
+                    {{#each data.[0]}}
+                        <th>
+                            {{@key}}
+                        </th>
+                    {{/each}}
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            {{!-- Body Section --}}
+            <tbody class="table-body">
+                {{#each data}}
+                {{!-- SELECT name, email, phone, genre FROM Artists;; --}}
+                    <tr data-value={{this.ID}}>
+                        <td>{{this.ID}}</td>
+                        <td>{{this.Name}}</td>
+                        <td>{{this.Email}}</td>
+                        <td>{{this.Phone}}</td>
+                        <td>{{this.Genre}}</td>
+                        <td><button onclick="deleteArtist({{this.ID}})" class="delete-button">Delete</button></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <br>
+
+        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new artist</button>
+        <div class="form-body" id="show-add">
+            <form class="sharp-form" id="add-artist-form">
+                <div class="form-title">Add an Artist</div>
+                <p class="form-desc">
+                    INPUT DESCRIPTION HERE
+                </p>
+
+                <div class="form-item">
+                    <label for="add-artist" class="form-label">Name: </label>
+                    <input type="text" class="form-input" name="add-artist" id="add-artist">
+                </div>
+
+                <div class="form-item">
+                    <label for="add-email" class="form-label">Email: </label>
+                    <input type="email" class="form-input" name="add-email" id="add-email" required="required">
+                </div>
+
+                <div class="form-item" class="form-label">
+                    <label for="add-phone" class="form-label">Phone: </label>
+                    <input type="tel" class="form-input" name="add-phone" id="add-phone" required="required">
+                </div>
+
+                <div class="form-item">
+                    <label for="add-genre" class="form-label">Genre: </label>
+                    <input type="text" class="form-input" name="add-genre" id="add-genre" required="required">
+                </div>
+                    <div class="form-item">
+                    <input type="submit" class="form-button">
+                </div>
+
+            </form>
+        </div>
+
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update artist details</button>
+        <div class="form-body" id="show-update">
+            <form class="sharp-form" id="update-artist-form">
+                <div class="form-title">Update an Existing Artist</div>
+                <p class="form-desc">
+                    INPUT DESCRIPTION HERE
+                </p>
+                <div class="form-item">
+                    <label for="input-id">Artist ID: </label>
+                    <select class="form-dropdown" name="input-id" id="input-id">
+                        <option value="test">Select ID</option>
+                        {{#each data}}
+                            <option value="{{this.ID}}">{{this.ID}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-item">
+                    <label for="update-name" class="form-label">Name: </label>
+                    <input type="text" class="form-input" name="update-name" id="update-name">
+                </div>
+
+                <div class="form-item">
+                    <label for="update-email" class="form-label">Email: </label>
+                    <input type="email" class="form-input" name="update-email" id="update-email" required="required">
+                </div>
+
+                <div class="form-item" class="form-label">
+                    <label for="update-phone" class="form-label">Phone: </label>
+                    <input type="tel" class="form-input" name="update-phone" id="update-phone" required="required">
+                </div>
+
+                <div class="form-item">
+                    <label for="update-genre" class="form-label">Genre: </label>
+                    <input type="text" class="form-input" name="update-genre" id="update-genre" required="required">
+                </div>
+
+                <div class="form-item">
+                    <input type="submit" class="form-button">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<div id "data-table">
-    <h2><b>List of Scheduled Artits</b></h2>
-    <table border=solid cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Genre</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Modest Mouse</td>
-            <td>MM@gmail.com</td>
-            <td>123-456-7890</td>
-            <td>Indie Rock</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>System of a Down</td>
-            <td>sysdown@gmail.com</td>
-            <td>234-567-8901</td>
-            <td>Progressive Metal</td>
-        </tr>
-            <td>3</td>
-            <td>James Taylor</td>
-            <td>jtaylor@aol.com</td>
-            <td>345-678-9012</td>
-            <td>Folk</td>
-        </tr>
-    </table>
-</div>
-<br>
-
-<div id="add">
-    <form id="add-artist">
-        <legend><b>Add a new Artist</b></legend>
-          <fieldset class="fields">
-            <label> Name: </label> <input type="text" name="name">
-            <label> Email: </label> <input type="email" name="email">
-            <label> Phone: </label> <input type="tel" name="phone">
-            <label> Genre: </label> <input type="text" name="genre">
-          </fieldset>
-          <input class="btn" type="submit" id="add_artist" value="Add Artist">
-          <input class="btn" type="button" value="Cancel">
-	</form>
-</div>
-<br>
-
-<div id="update">
-    <form id="update-artist">
-      <legend><b>Update Details of an Artist</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-            <label> Name: </label> <input type="text" name="name">
-            <label> Email: </label> <input type="email" name="email">
-            <label> Phone: </label> <input type="tel" name="phone">
-            <label> Genre: </label> <input type="text" name="genre">
-    </fieldset>
-    <input class="btn" type="submit" id="update-artist" value="Update Artist">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
-<br>
-
-<div id="delete">
-    <form id="delete-artist">
-      <legend><b>Remove an Scheduled Artist</b></legend>
-          <fieldset class="fields">
-            <label> ID: </label> <input type="number" name="id">
-    </fieldset>
-    <input class="btn" type="submit" id="delete-artist" value="Delete Artist">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
-</div>
+<script src="./js/mod_artist.js" async></script>
