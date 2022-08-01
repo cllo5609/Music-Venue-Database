@@ -1,94 +1,59 @@
-<div id = "header">
-    <h1>Rooms</h1>
-    <table id = "quick-links">
-        <tr>
-            <td><a class="link_button" type="button" href="/"> Home </a> | </td>
-            <td><a class="link_button" type="button" href="/venues"> Venues </a> | </td>
-            <td><a class="link_button" type="button" href="/rooms"> Rooms </a> | </td>
-            <td><a class="link_button" type="button" href="/performances"> Performances </a> | </td>
-            <td><a class="link_button" type="button" href="/artists"> Artists </a> | </td>
-            <td><a class="link_button" type="button" href="/instruments"> Instruments </a> | </td>
-            <td><a class="link_button" type="button" href="/tickets"> Tickets </a> | </td>
-            <td><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a> | </td>
-            <td><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></td>
-        </tr>
-    </table>
-</div>
+<div class="container">
+<div class="content-body">
+<h1>Rooms</h1>
+<h2><b>List of Rooms inside a Venue</b></h2>
 
-<div id "data-table">
-    <h2><b>List of Rooms inside a Venue</b></h2>
-    <table border=solid cellpadding="5">
-        <tr>
-            <th>Room ID</th>
-            <th>Name</th>
-            <th>Capacity</th>
-            <th>Over 21</th>
-            <th>Venue ID</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Pony Room</td>
-            <td>75</td>
-            <td>0</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Oregon Trail</td>
-            <td>50</td>
-            <td>1</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>The Clydesdale</td>
-            <td>125</td>
-            <td>1</td>
-            <td>3</td>
-        </tr>
+<div id="rooms-table">
+    <h2><b>Rooms List</b></h2>
+    <table class="sharp-table">
+        {{!-- Header section --}}
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{!-- Body Section --}}
+        <tbody>
+            {{#each data}}
+            {{!-- SELECT name, capacity, venue FROM Rooms; --}}
+            <tr>
+                <td>{{this.Room}}</td>
+                <td>{{this.Capacity}}</td>
+                <td>{{this.Venue}}</td>
+                <td>{{this.Adult}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 <br>
 
 <div id="add">
-    <form id="add-room">
-        <legend><b>Add a New Room to a Venue</b></legend>
+    <form id="add-room-form">
+          {{!<alert>Hello</alert> }}
+        <legend><b>Add a Room</b></legend>
           <fieldset class="fields">
-            <label> Name: </label> <input type="text" name="name">
-            <label> Capacity: </label> <input type="text" name="capacity"><br>
-            <label> Over 21:</label> <input type="number" name="over_21">
-            <label> Venue ID:</label> <input type="number" name="venue_id">
+            <label for="rNameInput"> Room Name: </label>
+                <input type="text" name="rNameInput" id="rNameInput">
+            <label for="rCapacityInput"> Capacity: </label>
+                <input type="number" name="rCapacityInput" id="rCapacityInput"><br>
+            <label for="rVenueInput"> Venue:</label>
+                <input type="number" name="rVenueInput" id="rVenueInput">
+            <label for="rAdultEventInput"> Over 21:</label>
+                <input type="number" name="rAdultEventInput" id="rAdultEventInput">
           </fieldset>
-          <input class="btn" type="submit" id="add_room" value="Add Room">
+          <input class="btn" type="submit" id="add_a_room" value="Add Room">
           <input class="btn" type="button" value="Cancel">
-	</form>
-</div>
-<br>
-
-<div id="update">
-    <form id="update-room">
-        <legend><b>Update Details about a Room</b></legend>
-        <fieldset class="fields">
-            <label> Room ID: </label> <input type="number" name="id">
-            <label> Name: </label> <input type="text" name="name">
-            <label> Capacity: </label> <input type="text" name="capacity"><br>
-            <label> Over 21:</label> <input type="number" name="over_21">
-            <label> Venue ID:</label> <input type="number" name="venue_id">
-        </fieldset>
-        <input class="btn" type="submit" id="update-room" value="Update Room">
-        <input class="btn" type="button" value="Cancel" >
     </form>
 </div>
-<br>
-
-<div id="delete">
-    <h2><b>Delete a Room from a Venue Room</b></h2>
-    <form id="delete-room">
-      <legend><b>Delete Room</b></legend>
-          <fieldset class="fields">
-            <label> Room ID: </label> <input type="number" name="id">
-    </fieldset>
-    <input class="btn" type="submit" id="delete-room" value="Delete Room">
-    <input class="btn" type="button" value="Cancel" >
-  </form>
 </div>
+</div>
+    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+    <script src="../js/add_room.js"></script>
+
+
+
