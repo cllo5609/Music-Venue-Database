@@ -1,23 +1,38 @@
-<!-- main.hbs-->
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
+    <link href="./css/main_style.css" rel="stylesheet" type="text/css" />
     <title>Prestige Worldwide</title>
-    <script src="/public/js/page_display.js"></script>
 </head>
 <body>
-    <style>
-        body {
-        height: 100%;
-        display: table;
-        margin-left: 20%;
-        margin-right: 20%;
-        }
-    </style>
 
+        <div class="head-content">
+            <div class="left">
+                <ul>
+                    <li><img src="./images/worldwide.png" alt="Italian Trulli"></li>
+                </ul>
+
+                <ul>
+                    <h1>Prestige Worldwide Database</h1>
+                </ul>
+            </div>
+            <div class="bottom"></div>
+        </div>
+
+        <div class="quick-links">
+            <ul>
+                <li><a class="link_button" type="button" href="/"> Home </a></li>
+                <li><a class="link_button" type="button" href="/venues"> Venues </a></li>
+                <li><a class="link_button" type="button" href="/rooms"> Rooms </a></li>
+                <li><a class="link_button" type="button" href="/performances"> Performances </a></li>
+                <li><a class="link_button" type="button" href="/artists"> Artists </a></li>
+                <li><a class="link_button" type="button" href="/instruments"> Instruments </a></li>
+                <li><a class="link_button" type="button" href="/tickets"> Tickets </a></li>
+                <li><a class="link_button" type="button" href="/ticket_invoices"> Ticket Invoices </a></li>
+                <li><a class="link_button" type="button" href="/artist_needs_ins"> Requested Instruments </a></li>
+            </ul>
+        </div>
     {{{body}}}
-
 </body>
 </html>
