@@ -1,0 +1,105 @@
+{{!
+    Authors:    Charles D. Maddux
+                Clinton Lohr
+    Date:       7 Aug 2022
+    Rev Date:   7 Aug 2022
+    Description: Index page for the web application - Gives a description of the funtions that can be carried out for each page.
+    Sources: N/A
+}}
+
+<div class="container">
+    <div class="content-body">
+        <div class="index-title">
+            <h1>Welcome to the Prestige Worldwide Entertainment Database</h1>
+        </div>
+        <h2>To enter an upcoming performance into the database, click on the 'Performances'</h2>
+        <h2>link below or use the 'quick-links' at the top of the page to navigate to other</h2>
+        <h2> tables in the database.</h2><br>
+        <h2>Below you will find a description of the actions that can be performed on each page.</h2>
+        <br>
+
+        {{! Performance page description }}
+        <h3><a type="button" href="/performances"> Performances: </a></h3>
+        <div class="index-notes">
+            <ul>
+                <li>Here you can view upcoming performances or schedule a future performance for a specific room in a venue, as well as specify the</li>
+                <li>artist/group performing. You will also be able to update details about a scheduled performance or cancel and upcoming performance</li>
+                <li>by removing it from the database.</li>
+            </ul>
+        </div>
+
+        {{! Artists page description }}
+        <h3><a type="button" href="/artists"> Artists: </a></h3>
+        <div class="index-notes">
+            <ul>
+                <li>Add an upcoming artist/group to the database or view the list of artists scheduled to perform at one of the Prestige Worldwide</li>
+                <li> venues. This page is also where you can update details, such as contact information for the performer(s), or remove an artist</li>
+                <li> from an upcoming performance.</li>
+            </ul>
+        </div>
+
+        {{! Venue page description }}
+        <h3><a type="button" href="/venues"> Venues: </a></h3>
+        <div class="index-notes">
+            <ul>
+                <li>Add a new venue to the list of Prestige Worldwide owned venues or view the current list of venues and their details.</li>
+                <li>This page is also where you can update details about a current venue or remove a venue from the list of Prestige Worlwide</li>
+                <li>owned venues. </li>
+            </ul>
+            <br>
+            <p><b>Note:</b> The "Venues" table will rarely be modified. Modifications will only occur if venue details change,
+                a venue closes permanently,<br> or a new venue under the PWE name is built or purchased.
+            </p>
+        </div>
+
+        {{! Rooms page description }}
+        <h3><a type="button" href="/rooms"> Rooms: </a></h3>
+        <div class="index-notes">
+            <ul>
+                <li>Add a new room to one of the existing Prestige Worldwide owned venues or view the current list of rooms and their details.</li>
+                <li>This page is also where you can update details about a room or remove a room from its venue.</li>
+            </ul>
+            <br>
+            <p><b>Note:</b> The "Rooms" table will rarely be modified. Modifications will only occur if a venue modifies room details, adds a room to,<br> or removes
+                a room from, their establishment.</p>
+        </div>
+
+        {{! Instruments page description }}
+        <h3><a type="button" href="/instruments"> Instruments: </a></h3>
+        <div class="index-notes">
+            <ul>
+                <li>Add an instrument to the list of instruments that can be requested by an artist for a performance or view the list of </li>
+                <li>instruments currently in the database.</li>
+                <li>This page is also where you can update an instrument's name or remove an availalbe instrument from the database.</li>
+            </ul>
+        </div>
+
+        {{! Tickets page description }}
+        <h3><a type="button" href="/tickets"> Tickets: </a></td></h3>
+        <div class="index-notes">
+            <ul>
+                <li>Add a ticket for an upcoming performance to the database or view the current list of tickets for upcoming performances.</li>
+                <li>This page is also where you can update a ticket's price or remove a ticket from the database.</li>
+            </ul>
+        </div>
+
+        {{! Ticket Invoices page description }}
+        <h3><a type="button" href="/ticket_invoices"> Ticket Invoices: </a></h3>
+        <div class="index-notes">
+            <ul>
+                <li>Add a ticket invoice to the database with an upcoming performance ID and a ticket price or view the current list of</li>
+                <li>invoices and their details.</li>
+                <li>This page is also where you can update the performance ID and price for a ticket or remove a ticket invoice from the database.</li>
+            </ul>
+        </div>
+
+        {{!Requested Instruments page description }}
+        <h3><a type="button" href="/artist_needs_ins"> Requested Instruments: </a></h3>
+        <div class="index-notes">
+            <ul>
+                <li>Add a request by an artist for an instrument for an upcoming performance or view the list of requested instruments.</li>
+                <li>This page is also where you can update the instrument that an artist will need or remove an instrument request from the database.</li>
+            </ul>
+        </div>
+    </div>
+</div>

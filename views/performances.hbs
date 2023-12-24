@@ -1,0 +1,216 @@
+{{!
+    Authors:    Charles D. Maddux
+                Clinton Lohr
+    Date:       7 Aug 2022
+    Rev Date:   7 Aug 2022
+    Description: Performances page - creates the structure and includes descriptions for the Performances webpage
+    Sources: https://github.com/osu-cs340-ecampus/nodejs-starter-app // Code for the entry delete, 'displayAddForm' and 'displayUpdateForm'
+    buttons derived from this source
+}}
+
+<div class="page-title">
+    <h1>Performances</h1>
+</div>
+<div class="container">
+    <div class="content-body">
+        <div class="page-desc">
+            <h2>Here you can add, delete or update the details for an upcoming performance.</h2><br>
+            <h3>Don't see the artist/group, room or ticket price you're looking for in the form dropdown menus?</h3>
+            <h3>Use the 'Artists' page to add a new artist, the 'Rooms' page to add a new room or the 'Tickets'</h3>
+            <h3>page to add a new ticket with the ticket price.</h3><br>
+        </div>
+        <br>
+
+        {{! Displays Performances table}}
+        <h2><b>List of Scheduled Performances</b></h2>
+        <table class="sharp-table" id="performance-table">
+            {{!-- Table Header section --}}
+            <thead class="table-head">
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            {{!-- Table Body Section --}}
+            <tbody class="table-body">
+                {{#each data}}
+                {{!-- SELECT Artists.name, Performances.performance_date, ticket_price, Performances.tickets_available --}}
+                    <tr data-value={{this.ID}}>
+                        <td>{{this.ID}}</td>
+                        <td>{{this.Artist}}</td>
+                        <td>{{this.Date}}</td>
+                        <td>{{this.Room}}</td>
+                        <td>{{this.Price}}</td>
+                        <td>{{this.Available}}</td>
+                        <td><button onclick="deletePerformance({{this.ID}})" class="delete-button">Delete</button></td> {{! button and function to delete table data}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <br>
+
+        {{! Form to search for a performance in the database by artist/group}}
+        <div class="form-body" id="search-performance" style="display: block;">
+            <form class="sharp-form" id="search-performance-form" method="GET" action="/Performances"> {{! function call to display/hide form on-click}}
+                <div class="form-title">Search for Performances by Artist Name</div>
+                <p class="form-desc">
+                    Search for upcoming performances in the database by artist/group's name.
+                    If no table is displayed after a search, the queried artist has no upcoming
+                    performances scheduled.
+                </p>
+                {{! Artist name form field}}
+                <div class="form-item">
+                    <label for="search" class="form-label">Artist:</label>
+                    <select class="form-dropdown" name="search" id="search">
+                        <option value="reset">Select Artist</option>
+                            {{#each artists}}
+                            {{! Dynamically populated dropdown menu for artist name}}
+                                <option value="{{this.artist_id}}">{{this.name}}</option>
+                            {{/each}}
+                    </select>
+                </div>
+                {{! Submit performance search }}
+                <div class="form-item">
+                    <input type="submit" class="form-button" value="Search">
+                </div>
+                {{! Reset display table to display all performances}}
+                <div class="form-item">
+                    <a href='/performances' class="reset-button"><button>Reset</button></a>
+                </div>
+            </form>
+        </div>
+
+        {{! Form to add a new entry to the database }}
+        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new performance</button> {{! function call to display/hide form on-click}}
+        <div class="form-body" id="show-add">
+            <form class="sharp-form" id="add-performance-form">
+                <div class="form-title">Add a Performance</div>
+                <p class="form-desc">
+                    Fill out all fields below then click 'Submit' to add a new performance to the database.
+                </p>
+                {{! Artist name form field }}
+                <div class="form-item">
+                    <label for="input-artist" class="form-label">Artist Name: </label>
+                    <select class="form-dropdown" name="input-artist" id="input-artist">
+                        <option value="test">Select Artist</option>
+                        {{#each artists}}
+                            {{! Dynamically populated dropdown menu for artist name }}
+                            <option value="{{this.artist_id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Room name form field }}
+                <div class="form-item">
+                    <label for="input-room" class="form-label">Room Name: </label>
+                    <select class="form-dropdown" name="input-room" id="input-room">
+                        <option value="test">Select Room</option>
+                        {{#each rooms}}
+                            {{! Dynamically populated dropdown menu for Room Name }}
+                            <option value="{{this.room_id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Performance date form field }}
+                <div class="form-item">
+                    <label for="input-date" class="form-label">Performance Date: </label>
+                    <input type="date" class="form-input" name="input-date" id="input-date" required="required">
+                </div>
+                {{! Ticket price form field }}
+                <div class="form-item">
+                    <label for="input-price" class="form-label">Ticket Price: </label>
+                    <select class="form-dropdown" name="input-price" id="input-price">
+                        <option value="test">Select Price</option>
+                        {{#each prices}}
+                            {{! Dynamically populated dropdown menu for Ticket Price }}
+                            <option value="{{this.ticket_id}}">{{this.ticket_price}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Tickets available form field }}
+                 <div class="form-item">
+                   <label for="input-tickets" class="form-label">Tickets Available: </label>
+                   <input type="number" class="form-input" name="input-tickets" id="input-tickets" placeholder="e.g.(110)" required="required">
+                 </div>
+                    <div class="form-item">
+                    <input type="submit" class="form-button">
+                </div>
+
+            </form>
+        </div>
+
+        {{! Form to update an existing entry in the database}}
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update a performance</button>
+        <div class="form-body" id="show-update">
+            <form class="sharp-form" id="update-performance-form">
+                <div class="form-title">Update a Performance</div>
+                <p class="form-desc">
+                    Fill out all fields below then click 'Submit' to update an existing performance in the database.
+                </p>
+                {{! Performance ID form field }}
+                <div class="form-item">
+                    <label for="update-id" class="form-label">Performance ID: </label>
+                    <select class="form-dropdown" name="update-id" id="update-id" required="required">
+                        <option value="test">Select ID</option>
+                        {{#each data}}
+                            {{! Dynamically populated dropdown menu for performance id}}
+                            <option value="{{this.ID}}">{{this.ID}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Artist name form field }}
+                <div class="form-item">
+                    <label for="update-artist" class="form-label">Artist: </label>
+                    <select class="form-dropdown" name="update-artist" id="update-artist" required="required">
+                        <option value="test">Select Artist</option>
+                        {{#each artists}}
+                            {{! Dynamically populated dropdown menu for artist name}}
+                            <option value="{{this.artist_id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Room name form field }}
+                <div class="form-item">
+                    <label for="update-room" class="form-label">Room: </label>
+                    <select class="form-dropdown" name="update-room" id="update-room" required="required">
+                        <option value="test">Select Room</option>
+                        {{#each rooms}}
+                            {{! Dynamically populated dropdown menu for room name}}
+                            <option value="{{this.room_id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Performance date form field }}
+                <div class="form-item">
+                    <label for="update-date" class="form-label">Performance Date: </label>
+                    <input type="date" class="form-input" name="update-date" id="update-date" required="required">
+                </div>
+                {{! Ticket price form field }}
+                <div class="form-item">
+                    <label for="update-price" class="form-label">Ticket Price: </label>
+                    <select class="form-dropdown" name="update-price" id="update-price">
+                        <option value="test">Select Price</option>
+                        {{#each prices}}
+                            {{! Dynamically populated dropdown menu for ticket price}}
+                            <option value="{{this.ticket_id}}">{{this.ticket_price}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Tickets available form field }}
+                <div class="form-item">
+                    <label for="update-tickets" class="form-label">Tickets Available: </label>
+                    <input type="number" class="form-input" name="update-tickets" id="update-tickets" placeholder="e.g.(110)" required="required">
+                </div>
+                <div class="form-item">
+                    <input type="submit" class="form-button">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{! Reference to JavaScript file for Performances entity}}
+<script src="./js/mod_performance.js" async></script>

@@ -1,0 +1,136 @@
+{{!
+    Authors:    Charles D. Maddux
+                Clinton Lohr
+    Date:       7 Aug 2022
+    Rev Date:   7 Aug 2022
+    Description: Ticket Invoices page - creates the structure and includes descriptions for the Ticket Invoices webpage
+    Sources: https://github.com/osu-cs340-ecampus/nodejs-starter-app // Code for the entry delete, 'displayAddForm' and 'displayUpdateForm'
+    buttons derived from this source
+}}
+
+<div class="page-title">
+    <h1>Ticket Invoices</h1>
+</div>
+<div class="container">
+    <div class="content-body">
+        <div class="page-desc">
+            <h2>Here you can add, delete or update the details of a ticket invoice for an upcoming performance.</h2><br>
+            <h3>Select the performance ID from the 'Performances' page and use that ID to add a new ticket invoice.</h3>
+            <h3>If the desired performance is not in the database, use the 'Performances' page to create a new performance.</h3>
+            <h3>Ticket prices should be entered in United States Dollars (USD).</h3><br>
+        </div>
+        <br>
+
+        {{! Displays Ticket Invoices table}}
+        <h2><b>List of Ticket Invoices</b></h2>
+        <table class="sharp-table" id="invoice-table">
+            {{!-- Table Header section --}}
+            <thead class="table-head">
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            {{!-- Table Body Section --}}
+            <tbody class="table-body">
+                {{#each data}}
+                {{!-- SELECT Ticket_Invoices.event_id AS 'Invoice', Artists.name AS 'Performing', --}}
+                {{!-- Venues.name AS 'Location', Rooms.name AS 'Room', Performances.performance_date AS 'Date', --}}
+                {{!-- ticket_price AS 'Price'; --}}
+                <tr data-value={{this.Invoice}}>
+                    <td>{{this.Invoice}}</td>
+                    <td>{{this.Performer}}</td>
+                    <td>{{this.Location}}</td>
+                    <td>{{this.Room}}</td>
+                    <td>{{this.Date}}</td>
+                    <td>{{this.Price}}</td>
+                    <td><button onclick="deleteInvoice({{this.Invoice}})" class="delete-button">Delete</button></td> {{! button and function to delete table data}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <br>
+
+        {{! Form to add a new entry to the database}}
+        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new Invoice</button> {{! function call to display/hide form on-click}}
+        <div class="form-body" id="show-add">
+            <form class="sharp-form" id="add-invoice-form">
+                <div class="form-title">Add an Invoice</div>
+                <p class="form-desc">
+                    Fill out all fields below then click 'Submit' to add an invoice for an upcoming performance and associated ticket.<br>
+                    <b>Note:</b> Ticket prices should be entered in United States Dollars (USD).
+                </p>
+                {{! Performance ID form field}}
+                <div class="form-item">
+                    <label for="input-perf" class="form-label"> Performance ID: </label>
+                    <select class="form-dropdown" name="input-perf" id="input-perf">
+                        <option value="test">Select Performance</option>
+                        {{#each performance}}
+                            {{! Dynamically populated dropdown menu for performance id}}
+                            <option value="{{this.performance_id}}">{{this.performance_id}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Ticket price form field}}
+                <div class="form-item">
+                    <label for="input-price" class="form-label"> Ticket Price: </label>
+                    <select class="form-dropdown" name="input-price" id="input-price">
+                        <option value="test">Select Price</option>
+                        {{#each tickets}}
+                            {{! Dynamically populated dropdown menu for ticket price}}
+                            <option value="{{this.ticket_id}}">{{this.ticket_price}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-item">
+                    <input type="submit" class="form-button">
+                </div>
+            </form>
+        </div>
+
+        {{! Form to update an existing entry in the database}}
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to Update an Invoice</button> {{! function call to display/hide form on-click}}
+        <div class="form-body" id="show-update">
+            <form class="sharp-form" id="update-invoice-form">
+                <div class="form-title">Update an Invoice</div>
+                <p class="form-desc">
+                    Fill out all fields below then click 'Submit' to update an invoice for an upcoming performance and associated ticket.<br>
+                    <b>Note:</b> Ticket prices should be entered in United States Dollars (USD).
+                </p>
+                {{! Invoice ID form field}}
+                <div class="form-item">
+                    <label for="invoice-id" class="form-label"> Invoice ID: </label>
+                    <select class="form-dropdown" name="invoice-id" id="invoice-id">
+                        <option value="test">Select ID</option>
+                        {{#each data}}
+                            {{! Dynamically populated dropdown menu for invoice id}}
+                            <option value="{{this.Invoice}}">{{this.Invoice}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Ticket Price form field}}
+                <div class="form-item">
+                    <label for="update-price" class="form-label"> Ticket Price: </label>
+                    <select class="form-dropdown" name="update-price" id="update-price">
+                        <option value="test">Select Price</option>
+                        {{#each tickets}}
+                            {{! Dynamically populated dropdown menu for ticket price}}
+                            <option value="{{this.ticket_id}}">{{this.ticket_price}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-item">
+                    <input type="submit" class="form-button">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{! Reference to JavaScript file for Ticket Invoices entity}}
+<script src="../js/mod_invoice.js"></script>
+

@@ -1,0 +1,161 @@
+{{!
+    Authors:    Charles D. Maddux
+                Clinton Lohr
+    Date:       7 Aug 2022
+    Rev Date:   7 Aug 2022
+    Description: Rooms page - creates the structure and includes descriptions for the Rooms webpage
+    Sources: https://github.com/osu-cs340-ecampus/nodejs-starter-app // Code for the entry delete, 'displayAddForm' and 'displayUpdateForm'
+    buttons derived from this source
+}}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<div class="page-title">
+    <h1>Rooms</h1>
+</div>
+<div class="container">
+    <div class="content-body">
+        <div class="page-desc">
+            <h2>Here you can add, delete or update the details of a room in a venue.</h2><br>
+            <h3>Don't see the venue you're looking for in the form dropdown menu?</h3>
+            <h3>Use the 'Venues' page to add a new venue.</h3><br>
+        </div>
+        <br>
+
+        {{! Displays Rooms table}}
+        <h2><b>Room List and Details</b></h2>
+        <table class="sharp-table" id="room-table">
+            {{!-- Table Header section --}}
+            <thead class="table-head">
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            {{!-- Table Body Section --}}
+            <tbody class="table-body">
+                {{#each data}}
+                <tr data-value={{this.ID}}>
+                    <td>{{this.ID}}</td>
+                    <td>{{this.Room}}</td>
+                    <td>{{this.Capacity}}</td>
+                    <td>{{this.Venue}}</td>
+                    <td>{{this.Adult}}</td>
+                    <td><button onclick="deleteRoom({{this.ID}})" class="delete-button">Delete</button></td> {{! button and function to delete table data}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <br>
+
+        {{! Form to add a new entry to the database}}
+        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new room</button> {{! function call to display/hide form on-click}}
+        <div class="form-body" id="show-add">
+            <form class="sharp-form" id="add-room-form">
+                <div class="form-title">Add a Room</div>
+                <p class="form-desc">
+                    Fill out all fields below then click 'Submit' to add a new room to a venue.
+                </p>
+                {{! Room name form field}}
+                <div class="form-item">
+                    <label for="rNameInput" class="form-label"> Room Name: </label>
+                    <input type="text" class="form-input" name="rNameInput" id="rNameInput" placeholder="e.g.(The Blue Room)" required="required">
+                </div>
+                {{! Capacity form field}}
+                <div class="form-item">
+                    <label for="rCapacityInput" class="form-label"> Capacity: </label>
+                    <input type="number" class="form-input" name="rCapacityInput" id="rCapacityInput" placeholder="e.g.(120)" required="required"><br>
+                </div>
+                {{! Venue name form field}}
+                <div class="form-item">
+                    <label for="rVenueInput" class="form-label"> Venue: </label>
+                    <select class="form-dropdown" name="rVenueInput" id="rVenueInput">
+                        <option value="test">Select Venue</option>
+                        {{#each venue}}
+                            {{! Dynamically populated dropdown menu for venue name}}
+                            <option value="{{this.venue_id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Over 21 show form field}}
+                <div class="form-item">
+                <label for="rAdultEventInput" class="form-label"> Over 21:</label>
+                        <select class="form-dropdown" name="rAdultEventInput" id="rAdultEventInput">
+                            <option value="" selected>Adult Venue?</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                </div>
+                <div class="form-item">
+                <input type="submit" class="form-button">
+                </div>
+            </form>
+        </div>
+
+        {{! Form to update an existing entry in the database}}
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update room details</button> {{! function call to display/hide form on-click}}
+        <div class="form-body" id="show-update">
+            <form class="sharp-form" id="update-room-form">
+                <div class="form-title">Update an Existing Room</div>
+                <p class="form-desc">
+                    Fill out all fields below then click 'Submit' to update the details of a room in a venue.
+                </p>
+                {{! Room ID form field}}
+                <div class="form-item">
+                    <label for="input-id">Room ID: </label>
+                    <select class="form-dropdown" name="input-id" id="input-id">
+                        <option value="test">Select ID</option>
+                        {{#each data}}
+                            {{! Dynamically populated dropdown menu for room id}}
+                            <option value="{{this.ID}}">{{this.ID}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Room name form field}}
+                <div class="form-item">
+                    <label for="update-room" class="form-label">Room Name: </label>
+                    <input type="text" class="form-input" name="update-room" id="update-room" placeholder="e.g.(The Blue Room)" required="required">
+                </div>
+                {{! Room capacity form field}}
+                <div class="form-item">
+                    <label for="update-capacity" class="form-label">Capacity: </label>
+                    <input type="number" class="form-input" name="update-capacity" id="update-capacity" placeholder="e.g.(120)" required="required">
+                </div>
+                {{! Venue name form field}}
+                <div class="form-item">
+                    <label for="update-venue" class="form-label">Venue:</label>
+                    <select class="form-dropdown" name="update-venue" id="update-venue">
+                        <option value="test">Select Venue</option>
+                        {{#each venue}}
+                            {{! Dynamically populated dropdown menu for venue name}}
+                            <option value="{{this.venue_id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Over 21 show form field}}
+                <div class="form-item">
+                    <label for="update-over-21" class="form-label">Over 21? </label>
+                    <select class="form-dropdown" name="update-over-21" id="update-over-21">
+                        <option value="" selected>Adult Venue?</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-item">
+                    <input type="submit" class="form-button">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{! Reference to JavaScript file for Rooms entity}}
+<script src="./js/mod_room.js" async></script>
+
+
+

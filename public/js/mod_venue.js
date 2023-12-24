@@ -1,3 +1,13 @@
+/*
+    Authors:     Charles D. Maddux
+                 Clinton Lohr
+    Date:        7 Aug 2022
+    Rev Date:    7 Aug 2022
+    Description: Modify Venues page - JavaScript to add functionality to the forms and tables to the Mod Venues page.
+    Sources:     https://github.com/osu-cs340-ecampus/nodejs-starter-app // Code for the add, update and delete functionality
+                 was derived from this source.
+*/
+
 // SHOW ADD FORM
 function displayAddForm() {
     let x = document.getElementById("show-add");
@@ -22,14 +32,19 @@ function displayUpdateForm() {
     }
 }
 
+
+// ########## ADD ##########
+
+// Get the objects we need to modify
 let addVenueForm = document.getElementById('add-venue-form');
 
+// Modify the objects we need
 addVenueForm.addEventListener("submit", function (e){
 
+    // Prevent the form from submitting
     e.preventDefault();
 
-    // get form fields
-
+    // Get form fields we need to get data from
     let inputName = document.getElementById("add-name");
     let inputAddress = document.getElementById("add-address");
     let inputCity = document.getElementById("add-city");
@@ -39,7 +54,7 @@ addVenueForm.addEventListener("submit", function (e){
     let inputRooms = document.getElementById("add-num-rooms");
     let inputCapacity = document.getElementById("add-cap");
 
-    // get values
+    // Get the values from the form fields
     let nameValue = inputName.value;
     let addressValue = inputAddress.value;
     let cityValue = inputCity.value;
@@ -49,7 +64,7 @@ addVenueForm.addEventListener("submit", function (e){
     let roomsValue = inputRooms.value;
     let capValue = inputCapacity.value;
 
-    // put data in js object
+    // Put our data we want to send in a javascript object
     let data = {
         vname: nameValue,
         vaddress: addressValue,
@@ -61,17 +76,16 @@ addVenueForm.addEventListener("submit", function (e){
         vcapacity: capValue
     }
 
-    // AJAX request
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-venue", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // resolve AJAX request
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            //addRowToTable(xhttp.response);
 
-            // clear input fields
+            // Clear the input fields for another transaction
             inputName.value = '';
             inputAddress.value = '';
             inputCity.value = '';
@@ -80,50 +94,58 @@ addVenueForm.addEventListener("submit", function (e){
             inputPhone.value = '';
             inputRooms.value = '';
             inputCapacity.value = '';
-
+            location.reload();
         }
         else if (xhttp.readyState == 4 && xhttp.status != 400) {
             console.log("ERROR: There was a problem with the input")
         }
     }
+
+    // Send the request and wait for the response. Reload page
     xhttp.send(JSON.stringify(data));
     location.reload()
 })
 
 
-// DELETE
+// ########## Delete ##########
 
 function deleteVenue(venueID) {
 
+    // Put our data we want to send in a javascript object
     let data = {
         id: venueID
     };
 
-    // AJAX request
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("DELETE", "/delete-venue", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Resolve request
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")
         }
     }
 
+    // Send the request and wait for the response. Reload page
     xhttp.send(JSON.stringify(data));
     location.reload();
 }
 
-// UPDATE
 
+// ########## Update ##########
+
+// Get the objects we need to modify
 let updateVenueForm = document.getElementById('update-venue-form');
 
+// Modify the objects we need
 updateVenueForm.addEventListener("submit", function (e) {
 
+    // Prevent the form from submitting
     e.preventDefault();
 
-    // get form fields
+    // Get form fields we need to get data from
     let inputID = document.getElementById("input-id");
     let inputName = document.getElementById("update-name");
     let inputAddress = document.getElementById("update-address");
@@ -134,7 +156,7 @@ updateVenueForm.addEventListener("submit", function (e) {
     let inputRooms = document.getElementById("update-num-rooms");
     let inputCapacity = document.getElementById("update-cap");
 
-    // get values
+    // Get the values from the form fields
     let idValue = inputID.value;
     let nameValue = inputName.value;
     let addressValue = inputAddress.value;
@@ -145,7 +167,7 @@ updateVenueForm.addEventListener("submit", function (e) {
     let roomsValue = inputRooms.value;
     let capValue = inputCapacity.value;
 
-    // put data in js object
+    // Put our data we want to send in a javascript object
     let data = {
         vid: idValue,
         vname: nameValue,
@@ -158,18 +180,16 @@ updateVenueForm.addEventListener("submit", function (e) {
         vcapacity: capValue
     }
 
-    // AJAX request
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/update-venue", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Resolve request
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            //updateRow(xhttp.response, idValue);
-
-            // clear input fields
+            // Clear the input fields for another transaction
             inputName.value = '';
             inputAddress.value = '';
             inputCity.value = '';
@@ -178,13 +198,14 @@ updateVenueForm.addEventListener("submit", function (e) {
             inputPhone.value = '';
             inputRooms.value = '';
             inputCapacity.value = '';
+            location.reload();
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
 
-    // Send the request
+    // Send the request and wait for the response. Reload page
     xhttp.send(JSON.stringify(data));
     location.reload();
 })

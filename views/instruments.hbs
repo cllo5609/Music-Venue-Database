@@ -1,18 +1,27 @@
+{{!
+    Authors:    Charles D. Maddux
+                Clinton Lohr
+    Date:       7 Aug 2022
+    Rev Date:   7 Aug 2022
+    Description: Instruments page - creates the structure and includes descriptions for the instruments webpage
+    Sources: https://github.com/osu-cs340-ecampus/nodejs-starter-app // Code for the entry delete, 'displayAddForm' and 'displayUpdateForm'
+    buttons derived from this source
+}}
+
 <div class="page-title">
     <h1>Instruments</h1>
 </div>
 <div class="container">
     <div class="content-body">
         <div class="page-desc">
-            <h2>Here you can add, update or delete an instrument request for an upcoming artist/group.</h2><br>
-            <h3>Dont see the artist/group or instrument you're looking for in the form dropdown menu?</h3>
-            <h3>Use the 'Artists' page to add a new artist to the database or use the 'Instruments' page</h3>
-            <h3>to add a new instrument.</h3>
+            <h2>Here you can add, delete or update the name of an instrument that a venue has available for request.</h2><br>
         </div>
         <br>
 
+        {{! Displays Instruments table}}
         <h2><b>Instruments Available for Request</b></h2>
         <table class="sharp-table">
+            {{!-- Table Header section --}}
             <thead class="table-head">
                 <tr>
                     {{#each data.[0]}}
@@ -23,25 +32,28 @@
                     <th>Remove</th>
                 </tr>
             </thead>
-
+            {{!-- Table Body Section --}}
             <tbody class="table-body">
                 {{#each data}}
+                    {{! "SELECT instrument_id AS 'ID', instrument_type AS 'Instrument' FROM Instruments;" }}
                     <tr data-value={{this.ID}}>
                         <td>{{this.ID}}</td>
                         <td>{{this.Instrument}}</td>
-                        <td><button onclick="deleteInstrument({{this.ID}})" class="delete-button">Delete</button></td>
+                        <td><button onclick="deleteInstrument({{this.ID}})" class="delete-button">Delete</button></td>  {{! button and function to delete table data}}
                     </tr>
                 {{/each}}
             </tbody>
         </table>
 
-        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new instrument</button>
+        {{! Form to add a new entry to the database}}
+        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new instrument</button> {{! function call to display/hide form on-click}}
         <div class="form-body" id="show-add">
             <form class="sharp-form" id="add-instrument-form">
-                <div class="form-title">Add a Ticket</div>
+                <div class="form-title">Add an Instrument</div>
                 <p class="form-desc">
-                    INPUT DESCRIPTION HERE
+                    Fill out all fields below then click 'Submit' to add a new instrument to the database.
                 </p>
+                {{! Instrument name form field}}
                 <div class="form-item">
                     <label for="add-type" class="form-label">Instrument Name:</label>
                     <input type="text" class="form-input" name="add-type" id="add-type" placeholder="(e.g. tuba)" required="required">
@@ -52,25 +64,29 @@
             </form>
         </div>
 
-        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update an existing instrument</button>
+      {{! Form to update an existing entry in the database}}
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update an existing instrument</button>  {{! button and function to delete table data}}
         <div class="form-body" id="show-update">
             <form class="sharp-form" id="update-instrument-form">
                 <div class="form-title">Update an Instrument</div>
                 <p class="form-desc">
-                    INPUT DESCRIPTION HERE
+                    Fill out all fields below then click 'Submit' to update the details of an existing instrument in the database.
                 </p>
+                {{! Instrument ID form field}}
                 <div class="form-item">
                     <label for="ins-id" class="form-label">Instrument ID:</label>
                     <select class="form-dropdown" name="ins-id" id="ins-id">
                         <option  value="test">Select an ID</option>
                         {{#each data}}
+                            {{! Dynamically populated dropdown menu for instrument id}}
                             <option class="form-input" value="{{this.ID}}">{{this.ID}}</option>
                         {{/each}}
                     </select>
                 </div>
+                {{! Instrument name form field}}
                 <div class="form-item">
                     <label for="update-type"class="form-label">Instrument Name: </label>
-                    <input type="text" class="form-input" name="update-type" id="update-type" placeholder="(e.g. bango)">
+                    <input type="text" class="form-input" name="update-type" id="update-type" placeholder="(e.g. bango)" required="required">
                 </div>
                 <div class="form-item">
                     <input class="form-button" type="submit">
@@ -79,4 +95,6 @@
         </div>
     </div>
 </div>
+
+{{! Reference to JavaScript file for Instruments entity}}
 <script src="./js/mod_instrument.js" async></script>

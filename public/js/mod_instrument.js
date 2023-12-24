@@ -1,4 +1,12 @@
-// Source: Code inherited from https://github.com/osu-cs340-ecampus/nodejs-starter-app
+/*
+    Authors:     Charles D. Maddux
+                 Clinton Lohr
+    Date:        7 Aug 2022
+    Rev Date:    7 Aug 2022
+    Description: Modify Instruments page - JavaScript to add functionality to the forms and tables to the Mod Instruments page.
+    Sources:     https://github.com/osu-cs340-ecampus/nodejs-starter-app // Code for the add, update and delete functionality
+                 was derived from this source.
+*/
 
 // SHOW ADD FORM
 function displayAddForm() {
@@ -24,30 +32,38 @@ function displayUpdateForm() {
     }
 }
 
-// INSERT
+// ########## ADD ##########
+
+// Get the objects we need to modify
 let addInstrumentForm = document.getElementById('add-instrument-form');
 
-// Send the POST
+// Modify the objects we need
 addInstrumentForm.addEventListener("submit", function(e){
 
+    // Prevent the form from submitting
     e.preventDefault();
 
+    // Get form fields we need to get data from
     let inputInstrumentName = document.getElementById("add-type");
 
+    // Get the values from the form fields
     let instrumentNameValue = inputInstrumentName.value;
 
+    // Put our data we want to send in a javascript object
     let data = {
         iname: instrumentNameValue
     }
-    // AJAX request
+
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-instrument", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Resolve AJAX
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
+            // Clear the input fields for another transaction
             inputTicketPrice.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -55,65 +71,69 @@ addInstrumentForm.addEventListener("submit", function(e){
         }
     }
 
-    // Send request
+    // Send the request and wait for the response. Reload page
     xhttp.send(JSON.stringify(data));
     location.reload();
 })
 
-// DELETE
+// ########## Delete ##########
 
 function deleteInstrument(instrumentID) {
 
+    // Put our data we want to send in a javascript object
     let data = {
         id: instrumentID
     };
 
-    // AJAX request
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("DELETE", "/delete-instrument", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Resolve request
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")
         }
     }
 
+    // Send the request and wait for the response. Reload page
     xhttp.send(JSON.stringify(data));
     location.reload();
 }
 
 
-// UPDATE
+// ########## Update ##########
 
+// Get the objects we need to modify
 let updateInstrumentForm = document.getElementById('update-instrument-form');
 
+// Modify the objects we need
 updateInstrumentForm.addEventListener("submit", function (e) {
 
+    // Prevent the form from submitting
     e.preventDefault();
 
-    // Get form fields
+    // Get form fields we need to get data from
     let inputID = document.getElementById("ins-id");
     let inputType = document.getElementById("update-type");
 
-    // Get values from fields
+    // Get the values from the form fields
     let idValue = inputID.value;
     let typeValue = inputType.value;
 
-
-    // Create javascript object with values
+    // Put our data we want to send in a javascript object
     let data = {
         iid: idValue,
         itype: typeValue,
     }
 
-    // AJAX request
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/update-instrument", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Resolve request
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
@@ -123,7 +143,7 @@ updateInstrumentForm.addEventListener("submit", function (e) {
         }
     }
 
-    // Send the request
+    // Send the request and wait for the response. Reload page
     xhttp.send(JSON.stringify(data));
     location.reload();
 })

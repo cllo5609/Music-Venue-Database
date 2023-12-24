@@ -1,17 +1,28 @@
+/*
+    Authors:    Charles D. Maddux
+                Clinton Lohr
+    Date:       7 Aug 2022
+    Rev Date:   7 Aug 2022
+    Description: Style page for web application layout and design
+    Sources: https://www.codecademy.com/learn/learn-css/modules/syntax-and-selectors // Used for general css syntax
+             https://www.youtube.com/watch?v=1PnVor36_40&ab_channel=WebDevSimplified // Used for layout and design ideas
+*/
+
+/* covers all pages margin, padding and font */
 *{
     margin: 0;
     padding: 0;
-    font-family: sans-serif
-
+    font-family: sans-serif;
 }
 
+/* body style for all pages */
 body {
   background: black;
     width:100%;
     height:100%;
-
 }
 
+/* style for header on all pages */
 .head-content{
     top: 0;
     left: 0;
@@ -22,9 +33,6 @@ body {
     color: black;
     border-bottom: 2px solid white;
     z-index: 1;
-
-
-
 }
 
 .left {
@@ -44,11 +52,13 @@ body {
   border-bottom: 2px solid black;
 }
 
+/* page links found on all pages */
 .quick-links {
     position: relative;
     margin-top:90px;
     margin-left:50px;
 }
+
 .quick-links ul {
     display: inline-flex;
     list-style: none;
@@ -109,8 +119,7 @@ body {
     padding:15px
 }
 
-/* Tables for all pages */
-
+/* tables for all pages */
 .sharp-table {
     border-collapse: collapse;
     border-radius: 5px;
@@ -119,7 +128,6 @@ body {
     min-width: 425px;
     box-shadow: 0 0 10px grey;
     border: 2px solid black;
-
 }
 
 .sharp-table thead tr {
@@ -129,8 +137,6 @@ body {
     color: white;
     background: black;
     border: 2px solid  black;
-
-
 }
 
 .sharp-table th{
@@ -169,13 +175,11 @@ body {
   background:rgb(177, 177, 228);
 }
 
-  .delete-button:active {
+.delete-button:active {
     background: #f8fc1b;
-  }
+}
 
-
-/* Forms for all pages */
-
+/* forms for all pages */
 .display-form-button{
     font-weight: 400;
     font-size: 1em;
@@ -210,14 +214,11 @@ body {
     box-shadow: 0 0 10px grey;
     width: 100%;
     max-width: 425px;
-
-
 }
 
 .form * {
   box-sizing: border-box;
   line-height: 1.5;
-
 }
 
   .form-title {
@@ -250,7 +251,6 @@ body {
   }
 
   .form-input {
-
     width: 90%;
     max-width: 425px;
     padding: 0.8em;
@@ -276,8 +276,19 @@ body {
     font-weight: 400;
     font-size: 1em;
     padding: 6px 10px;
-    margin: 10px 0;
 
+    color: black;
+    background: rgb(200, 200, 200);
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .reset-button button {
+    font-weight: 400;
+    font-size: 1em;
+    padding: 6px 10px;
     color: black;
     background: rgb(200, 200, 200);
     border: 2px solid black;

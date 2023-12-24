@@ -1,3 +1,13 @@
+/*
+    Authors:     Charles D. Maddux
+                 Clinton Lohr
+    Date:        7 Aug 2022
+    Rev Date:    7 Aug 2022
+    Description: Modify Artists page - JavaScript to add functionality to the forms and tables to the Mod Artists page.
+    Sources:     https://github.com/osu-cs340-ecampus/nodejs-starter-app // Code for the add, update and delete functionality
+                 was derived from this source.
+*/
+
 // SHOW ADD FORM
 function displayAddForm() {
     let x = document.getElementById("show-add");
@@ -22,27 +32,31 @@ function displayUpdateForm() {
     }
 }
 
+// ########## ADD ##########
+
+// Get the objects we need to modify
 let addArtistForm = document.getElementById('add-artist-form');
 
+// Modify the objects we need
 addArtistForm.addEventListener("submit", function (e){
 
+    // Prevent the form from submitting
     e.preventDefault();
 
-    // get form fields
-
+    // Get form fields we need to get data from
     let inputName = document.getElementById("add-artist");
     let inputEmail = document.getElementById("add-email");
     let inputPhone = document.getElementById("add-phone");
     let inputGenre = document.getElementById("add-genre");
 
-    // get values
+    // Get the values from the form fields
     let nameValue = inputName.value;
     let emailValue = inputEmail.value;
     let phoneValue = inputPhone.value;
     let genreValue = inputGenre.value;
 
 
-    // put data in js object
+    // Put our data we want to send in a javascript object
     let data = {
         aname: nameValue,
         aemail: emailValue,
@@ -50,17 +64,16 @@ addArtistForm.addEventListener("submit", function (e){
         agenre: genreValue
     }
 
-    // AJAX request
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-artist", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // resolve AJAX request
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            //addRowToTable(xhttp.response);
 
-            // clear input fields
+            // Clear the input fields for another transaction
             inputName.value = '';
             inputEmail.value = '';
             inputPhone.value = '';
@@ -71,52 +84,59 @@ addArtistForm.addEventListener("submit", function (e){
             console.log("ERROR: There was a problem with the input")
         }
     }
+
+    // Send the request and wait for the response. Reload page
     xhttp.send(JSON.stringify(data));
     location.reload()
 })
 
 
-// DELETE
+// ########## Delete ##########
 
 function deleteArtist(artistID) {
 
+    // Put our data we want to send in a javascript object
     let data = {
         id: artistID
     };
 
-    // AJAX request
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("DELETE", "/delete-artist", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Resolve request
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.")
         }
     }
 
+    // Send the request and wait for the response. Reload page
     xhttp.send(JSON.stringify(data));
     location.reload();
 }
 
 
-// UPDATE
+// ########## Update ##########
 
+// Get the objects we need to modify
 let updateArtistForm = document.getElementById('update-artist-form');
 
+// Modify the objects we need
 updateArtistForm.addEventListener("submit", function (e) {
 
+    // Prevent the form from submitting
     e.preventDefault();
 
-    // Get form fields
+    // Get form fields we need to get data from
     let inputID = document.getElementById("input-id");
     let inputName = document.getElementById("update-name");
     let inputEmail = document.getElementById("update-email");
     let inputPhone = document.getElementById("update-phone");
     let inputGenre = document.getElementById("update-genre");
 
-    // Get values from fields
+    // Get the values from the form fields
     let idValue = inputID.value;
     let nameValue = inputName.value;
     let emailValue = inputEmail.value;
@@ -124,7 +144,7 @@ updateArtistForm.addEventListener("submit", function (e) {
     let genreValue = inputGenre.value;
 
 
-    // Create javascript object with values
+    // Put our data we want to send in a javascript object
     let data = {
         aid: idValue,
         aname: nameValue,
@@ -133,15 +153,16 @@ updateArtistForm.addEventListener("submit", function (e) {
         agenre: genreValue
     }
 
-    // AJAX request
+    // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/update-artist", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Resolve request
+    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
+            // Clear the input fields for another transaction
             inputName.value = '';
             inputEmail.value = '';
             inputPhone.value = '';
@@ -152,7 +173,53 @@ updateArtistForm.addEventListener("submit", function (e) {
         }
     }
 
-    // Send the request
+    // Send the request and wait for the response. Reload page
+    xhttp.send(JSON.stringify(data));
+    location.reload();
+})
+
+
+// ########## Update ##########
+
+// Get the objects we need to modify
+letSearchArtistForm = document.getElementById('search-artist-form');
+
+// Modify the objects we need
+updateArtistForm.addEventListener("submit", function (e) {
+
+    // Prevent the form from submitting
+    e.preventDefault();
+
+    // Get form fields we need to get data from
+    let inputName = document.getElementById("search-name");
+
+    // Get the values from the form fields
+    let nameValue = inputName.value;
+
+    // Put our data we want to send in a javascript object
+    let data = {
+        aname: nameValue,
+    }
+
+    // Setup our AJAX request
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/search-artist", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+
+    // Tell our AJAX request how to resolve
+    xhttp.onreadystatechange = () => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+            // Clear the input fields for another transaction
+            inputName.value = '';
+        }
+
+        else if (xhttp.readyState == 4 && xhttp.status != 200) {
+            console.log("There was an error with the input.")
+        }
+    }
+
+    // Send the request and wait for the response. Reload page
     xhttp.send(JSON.stringify(data));
     location.reload();
 })

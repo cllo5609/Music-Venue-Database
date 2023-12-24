@@ -1,0 +1,178 @@
+{{!
+    Authors:    Charles D. Maddux
+                Clinton Lohr
+    Date:       7 Aug 2022
+    Rev Date:   7 Aug 2022
+    Description: Venues page - creates the structure and includes descriptions for the Venues webpage
+    Sources: https://github.com/osu-cs340-ecampus/nodejs-starter-app // Code for the entry delete, 'displayAddForm' and 'displayUpdateForm'
+    buttons derived from this source
+}}
+
+<div class="page-title">
+    <h1>Venues</h1>
+</div>
+<div class="container">
+    <div class="content-body">
+        <div class="page-desc">
+            <h2>Here you can add, delete or update the details of a Prestige Worldwide venue.</h2><br>
+        </div>
+        <br>
+
+        {{! Displays Artists table}}
+        <h2><b>Venue List and Details</b></h2>
+        <table class="sharp-table">
+            {{!-- Table Header section --}}
+            <thead class="table-head">
+                <tr>
+                    {{#each data.[0]}}
+                        <th>
+                            {{@key}}
+                        </th>
+                    {{/each}}
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            {{!-- Table Body Section --}}
+            <tbody class="table-body">
+                {{#each data}}
+                {{!-- SELECT name, address, city, state, zip, phone, num_rooms, total_capacity FROM Venues; --}}
+                    <tr data-value={{this.ID}}>
+                        <td>{{this.ID}}</td>
+                        <td>{{this.Name}}</td>
+                        <td>{{this.Address}}</td>
+                        <td>{{this.City}}</td>
+                        <td>{{this.State}}</td>
+                        <td>{{this.Zip}}</td>
+                        <td>{{this.Phone}}</td>
+                        <td>{{this.Rooms}}</td>
+                        <td>{{this.Capacity}}</td>
+                        <td><button onclick="deleteVenue({{this.ID}})" class="delete-button">Delete</button></td> {{! button and function to delete table data}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        {{! Form to add a new entry to the database}}
+        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new venue</button> {{! function call to display/hide form on-click}}
+        <div class="form-body" id="show-add">
+            <form class="sharp-form" id="add-venue-form">
+                <div class="form-title">Add a New Venue</div>
+                <p class="form-desc">
+                        Fill out the fields below then click 'Submit' to add the venue to the database.
+                </p>
+                {{! Venue name form field}}
+                <div class="form-item">
+                    <label for="add-name" class="form-label">Name: </label>
+                    <input type="text" class="form-input" name="add-name" id="add-name" placeholder="e.g. (The Ogden)" required="required">
+                </div>
+                {{! Venue address form field}}
+                <div class="form-item">
+                    <label for="add-address" class="form-label">Address: </label>
+                    <input type="text" class="form-input" name="add-address" id="add-address" placeholder="e.g. (123 Colfax Ave.)" required="required">
+                </div>
+                {{! Venue city form field}}
+                <div class="form-item">
+                    <label for="add-city" class="form-label">City: </label>
+                    <input type="text" class="form-input" name="add-city" id="add-city" placeholder="e.g. (Denver)" required="required">
+                </div>
+                {{! Venue state form field}}
+                <div class="form-item">
+                    <label for="add-state" class="form-label">State: </label>
+                    <input type="text" class="form-input" name="add-state" id="add-state" min= "2" max="2" placeholder="e.g. (CO)" required="required">
+                </div>
+                {{! Venue zip code form field}}
+                <div class="form-item">
+                    <label for="add-zip" class="form-label">Zip Code: </label>
+                    <input type="number" class="form-input" name="add-zip" id="add-zip" placeholder="e.g. (80218)" required="required">
+                </div>
+                {{! Venue phone form field}}
+                <div class="form-item">
+                    <label for="add-phone" class="form-label">Phone: </label>
+                    <input type="number" class="form-input" name="add-phone" id="add-phone" min="1000000000" max="9999999999" placeholder="e.g. (3038321874)" required="required">
+                </div>
+                {{! Venue room count form field}}
+                <div class="form-item">
+                    <label for="add-num-rooms" class="form-label">Number of Rooms: </label>
+                    <input type="number" class="form-input" name="add-num-rooms" id="add-num-rooms" max="3" placeholder="e.g. (2)" required="required">
+                </div>
+                {{! Venue capacity form field}}
+                <div class="form-item">
+                    <label for="add-cap" class="form-label">Totaly Capacity: </label>
+                    <input type="number" class="form-input" name="add-cap" id="add-cap" min="25" placeholder="e.g. (125)" required="required">
+                </div>
+                <div class="form-item">
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+
+        {{! Form to update an existing entry in the database}}
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update an existing venue</button> {{! function call to display/hide form on-click}}
+        <div class="form-body" id="show-update">
+            <form class="sharp-form" id="update-venue-form">
+                <div class="form-title">Update an Existing Venue</div>
+                <p class="form-desc">
+                    Choose the entry you want to edit by selecting the cooresponding 'ID' and fill out the fields below.<br>
+                    Then click 'Submit' to update the venue.
+                </p>
+                {{! Venue ID form field}}
+                <div class="form-item">
+                    <label for="input-id">Venue ID: </label>
+                    <select class="form-dropdown" name="input-id" id="input-id" required>
+                        <option value="test">Select ID</option>
+                        {{#each data}}
+                            {{! Dynamically populated dropdown menu for venue id}}
+                            <option value="{{this.ID}}">{{this.ID}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Venue name form field}}
+                <div class="form-item">
+                    <label for="update-name" class="form-label">Name: </label>
+                    <input type="text" class="form-input" name="update-name" id="update-name" placeholder="e.g. (The Ogden)" required="required">
+                </div>
+                {{! Venue address form field}}
+                <div class="form-item">
+                    <label for="update-address" class="form-label">Address: </label>
+                    <input type="text" class="form-input" name="update-address" id="update-address" placeholder="e.g. (123 Colfax Ave.)" required="required">
+                </div>
+                {{! Venue city form field}}
+                <div class="form-item">
+                    <label for="update-city" class="form-label">City: </label>
+                    <input type="text" class="form-input" name="update-city" id="update-city" placeholder="e.g. (Denver)" required="required">
+                </div>
+                {{! Venue state form field}}
+                <div class="form-item">
+                    <label for="update-state" class="form-label">State: </label>
+                    <input type="text" class="form-input" name="update-state" id="update-state" min= "2" max="2" placeholder="e.g. (CO)" required="required">
+                </div>
+                {{! Venue zip code form field}}
+                <div class="form-item">
+                    <label for="update-zip" class="form-label">Zip Code: </label>
+                    <input type="number" class="form-input" name="update-zip" id="update-zip"  placeholder="e.g. (80218)" required="required">
+                </div>
+                {{! Venue phone form field}}
+                <div class="form-item">
+                    <label for="update-phone" class="form-label">Phone: </label>
+                    <input type="number" class="form-input" name="update-phone" id="update-phone" min="1000000000" max="9999999999" placeholder="e.g. (3038321874)" required="required">
+                </div>
+                {{! Venue room count form field}}
+                <div class="form-item">
+                    <label for="update-num-rooms" class="form-label">Number of Rooms: </label>
+                    <input type="number" class="form-input" name="update-num-rooms" id="update-num-rooms" max="3" placeholder="e.g. (2)" required="required">
+                </div>
+                {{! Venue capacity form field}}
+                <div class="form-item">
+                    <label for="update-cap" class="form-label">Totaly Capacity: </label>
+                    <input type="number" class="form-input" name="update-cap" id="update-cap" min="25" placeholder="e.g. (125)" required="required">
+                </div>
+                <div class="form-item">
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{! Reference to JavaScript file for Venues entity}}
+<script src="./js/mod_venue.js" async></script>

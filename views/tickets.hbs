@@ -1,0 +1,103 @@
+{{!
+    Authors:    Charles D. Maddux
+                Clinton Lohr
+    Date:       7 Aug 2022
+    Rev Date:   7 Aug 2022
+    Description: Tickets page - creates the structure and includes descriptions for the tickets webpage
+    Sources: https://github.com/osu-cs340-ecampus/nodejs-starter-app // Code for the entry delete, 'displayAddForm' and 'displayUpdateForm'
+    buttons derived from this source
+}}
+
+<div class="page-title">
+    <h1>Tickets</h1>
+</div>
+<div class="container">
+    <div class="content-body">
+        <div class="page-desc">
+            <h2>Here you can add, delete or update the price of a ticket for an upcoming performance.</h2><br>
+            <h3>Ticket Prices should be entered in United States Dollars (USD).</h3><br>
+
+        </div>
+        <br>
+
+        {{! Displays Tickets table}}
+        <h2><b>Tickets for Upcoming Performances</b></h2>
+        <table class="sharp-table">
+            {{!-- Table Header section --}}
+            <thead class="table-head">
+                <tr>
+                    {{#each data.[0]}}
+                        <th>
+                            {{@key}}
+                        </th>
+                    {{/each}}
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            {{!-- Table Body Section --}}
+            <tbody class="table-body">
+                {{#each data}}
+                {{!-- SELECT ticket_id AS 'ID', ticket_price AS 'Price' FROM Tickets; --}}
+                    <tr data-value={{this.ID}}>
+                        <td>{{this.ID}}</td>
+                        <td>{{this.Price}}</td>
+                        <td><button onclick="deleteTicket({{this.ID}})" class="delete-button">Delete</button></td> {{! button and function to delete table data}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        {{! Form to add a new entry to the database}}
+        <button class="display-form-button" onclick="displayAddForm()">Click here to add a new ticket</button> {{! function call to display/hide form on-click}}
+        <div class="form-body" id="show-add">
+            <form class="sharp-form" id="add-ticket-form">
+                <div class="form-title">Add a New Ticket</div>
+                <p class="form-desc">
+                    Fill out all fields below then click 'Submit' to add a new ticket for an upcoming event.<br>
+                    <b>Note:</b> Ticket prices should be entered in United States Dollars (USD).
+                </p>
+                {{! Price per ticket form field}}
+                <div class="form-item">
+                    <label for="add-price" class="form-label">Price Per Ticket: </label>
+                    <input type="number" class="form-input" min="0"step="0.01" name="add-price" id="add-price" placeholder="e.g.(59.99)" required="required">
+                </div>
+                <div class="form-item">
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+
+        <button class="display-form-button" onclick="displayUpdateForm()">Click here to update a ticket</button> {{! function call to display/hide form on-click}}
+        <div class="form-body" id="show-update">
+            <form class="sharp-form" id="update-ticket-form">
+                <div class="form-title">Update a Ticket</div>
+                <p class="form-desc">
+                    Fill out all fields below then click 'Submit' to update the details of an existing ticket for an ucoming event.<br>
+                    <b>Note:</b> Ticket prices should be entered in United States Dollars (USD).
+                </p>
+                {{! Ticket ID form field}}
+                <div class="form-item">
+                    <label for="input-id" class="form-label">Ticket ID: </label>
+                    <select class="form-dropdown" name="input-id" id="input-id">
+                        <option value="test">Select an ID</option>
+                        {{#each data}}
+                            {{! Dynamically populated dropdown menu for ticket id}}
+                            <option value="{{this.ID}}">{{this.ID}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{! Price per ticket form field}}
+                <div class="form-item">
+                    <label for="update-price" class="form-label">Price Per Ticket: </label>
+                    <input type="number" class="form-input" min="0"step="0.01" name="update-price" id="update-price" placeholder="e.g.(59.99)" required="required">
+                </div>
+                <div class="form-item">
+                    <input class="form-button" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{! Reference to JavaScript file for Tickets entity}}
+<script src="./js/mod_ticket.js" async></script>
